@@ -1,0 +1,47 @@
+*, *:before, *:after {box-sizing:  border-box !important;}
+
+
+article {
+	column-width: 13em;
+	column-gap: 0.5em;
+}
+
+section {
+	display: inline-block;
+	margin:  0.25rem;
+	padding:  1rem;
+	width:  100%;
+	border: 0.1em solid black;
+}
+
+
+p {
+	text-align:  left;
+	margin:  1rem 0;
+}
+
+
+
+
+/*  styles for background color, etc; not necessary for this thing to work  */
+
+
+
+body {
+	padding:  1em;
+	font-family:  sans-serif;
+}
+
+
+
+
+h1 {
+	font-size:  3rem;
+	font-weight:  800;
+}
+
+body {
+	line-height:  1.25;
+}
+
+
