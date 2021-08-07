@@ -9,8 +9,7 @@
   },
   "scripts": {
     "start": "gunicorn server.app:app",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "echo Skip build on Heroku"
+    "build": "cd client && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,6 +25,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "heroku-run-build-script": true
+  }
 }
