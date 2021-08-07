@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import { DataGrid, GridColDef} from '@material-ui/data-grid';
-
+import ZChart from './charts/chart';
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 95 },
@@ -31,35 +31,40 @@ const columns: GridColDef[] = [
     {
         field: 'populationGrowth',
         headerName: 'Pop. Growth',
-        width: 165,
+        type: 'number',
+        width: 205,
     },
     {
         field: 'priceGrowth',
         headerName: 'Price Growth',
-        width: 165,
+        type: 'number',
+        width: 205,
     },
     {
         field: 'ranges',
         headerName: 'Range',
-        width: 125,
+        type: 'number',
+        width: 165,
     },
     {
         field: 'forecasts',
-        headerName: '5yr Price Forecast',
+        headerName: '5yr Price Forecast ($USD)',
         type: 'number',
-        width: 195,
+        width: 255,
     }
 ];
 
+
 function Zillow() {
     const [projectData, setProjectData] = useState();
+    let curData: any;
 
     useEffect(() => {
         fetch('/zillow')
             .then((res) => res.json())
             .then((data) => {
                 let count = 0;
-                const curData = data.data.map((d: any) => {
+                curData = data.data.map((d: any) => {
                     return({
                         id: count++,
                         zip: d.zip,
@@ -67,20 +72,25 @@ function Zillow() {
                         city: d.city,
                         metro: d.metro,
                         county: d.county,
-                        populationGrowth: d.populationGrowth + '%',
-                        priceGrowth: (d.priceGrowth * 100).toFixed(0) + '%',
+                        populationGrowth: d.populationGrowth,
+                        priceGrowth: (d.priceGrowth).toFixed(2),
                         ranges: d.ranges,
-                        forecasts: '$' + (d.forecasts).toFixed(2),
+                        forecasts: (d.forecasts).toFixed(2),
                     });
                 }) || 'Nothing to show';
 
-                const dat = <DataGrid
-                              rows={curData}
-                              columns={columns}
-                              pageSize={10}
-                              //rowsPerPageOptions={[5,10,15]}
-                              disableSelectionOnClick
-                            />;
+                const dat =
+                    <div>
+                        <div style={{ height: 650, width: '100%' }}>
+                            <DataGrid
+                                rows={curData}
+                                columns={columns}
+                                pageSize={10}
+                                disableSelectionOnClick
+                            />
+                        </div>
+                        <ZChart chartData={curData}/>
+                    </div>
 
                 // @ts-ignore
                 setProjectData(dat);
@@ -88,7 +98,7 @@ function Zillow() {
     }, []);
 
     return (
-        <div style={{ height: 650, width: '100%' }}>{projectData}</div>
+        <div>{projectData}</div>
     );
 }
 
