@@ -1,4 +1,5 @@
-from flask import Flask, jsonify
+from flask import Flask, jsonify, render_template, send_from_directory, request, make_response
+from flask_cors import CORS, cross_origin
 from flask_sqlalchemy import SQLAlchemy
 from dotenv import load_dotenv
 
@@ -9,6 +10,8 @@ load_dotenv()
 app = Flask(__name__, static_folder='../client/build', static_url_path='/')
 app.config.from_object(os.environ['APP_SETTINGS'])
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = True
+
+cors = CORS(app)
 
 db = SQLAlchemy(app)
 
@@ -37,5 +40,9 @@ def rideshare():
         'fake': 'Rideshare Data'}]
     })
 
+@app.route('/')
+def serve():
+    return send_from_directory(app.static_folder, 'index.html')
+
 if __name__ == '__main__':
-    app.run(port=(os.getenv('PORT') if os.getenv('PORT') else 8080))
+    app.run(host='0.0.0.0')
