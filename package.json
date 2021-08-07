@@ -3,14 +3,40 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@material-ui/core": "^4.12.3",
+    "@material-ui/data-grid": "^4.0.0-alpha.36",
+    "@material-ui/icons": "^4.11.2",
+    "@material-ui/x-license": "^4.0.0-alpha.36",
+    "@testing-library/jest-dom": "^5.14.1",
+    "@testing-library/react": "^11.2.7",
+    "@testing-library/user-event": "^12.8.3",
+    "@types/history": "^4.7.9",
+    "@types/hookrouter": "^2.2.5",
+    "@types/jest": "^26.0.24",
+    "@types/node": "^12.20.19",
+    "@types/plotly.js": "^1.54.13",
+    "@types/react-dom": "^17.0.9",
+    "@types/react-plotly.js": "^2.5.0",
+    "@types/react-router": "^5.1.16",
+    "@types/react-router-dom": "^5.1.8",
+    "@types/socket.io-client": "^3.0.0",
+    "bootstrap": "^5.1.0",
+    "hookrouter": "^1.2.5",
+    "plotly.js": "^2.3.1",
     "react": "^17.0.2",
+    "react-bootstrap": "^1.6.1",
     "react-dom": "^17.0.2",
-    "react-scripts": "4.0.3"
+    "react-plotly.js": "^2.5.1",
+    "react-router-dom": "^5.2.0",
+    "react-scripts": "4.0.3",
+    "sass": "^1.37.5",
+    "socket.io-client": "^4.1.3",
+    "typescript": "^4.3.5",
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start": "gunicorn server.app:app",
-    "build": "cd client && npm run build",
-    "heroku-postbuild": "echo Skip build on Heroku"
+    "build": "cd client && npm run build"
   },
   "eslintConfig": {
     "extends": "react-app"
@@ -26,6 +52,5 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
-  },
-  "heroku-run-build-script": true
+  }
 }
