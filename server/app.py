@@ -42,4 +42,4 @@ def not_found(e):
     return app.send_static_file('index.html')
 
 if __name__ == '__main__':
-    app.run(host=os.getenv('APP_HOST'), port=(os.getenv('PORT') if os.getenv('PORT') else 8000))
+    app.run(port=(os.getenv('PORT') if os.getenv('PORT') else 8080))

@@ -4,7 +4,7 @@ import os
 load_dotenv()
 
 basedir = os.path.abspath(os.path.dirname(__file__))
-db_name = 'zillow'
+db_name = os.environ['DB_NAME']
 user = os.environ['DB_USER']
 pw = os.environ['DB_PASS']
 host = os.environ['DB_HOST']
