@@ -1,4 +1,4 @@
-from ..app import db
+from server.app import db
 from sqlalchemy.dialects.postgresql import JSON
 
 
@@ -25,9 +25,6 @@ class Housing(db.Model):
         self.priceGrowth = priceGrowth
         self.ranges = ranges
         self.forecasts = forecasts
-
-    def __repr__(self):
-        return '<ZipCode {}>'.format(self.zip)
 
     @property
     def serialized(self):

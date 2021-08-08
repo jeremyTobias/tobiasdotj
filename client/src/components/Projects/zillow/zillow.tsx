@@ -1,6 +1,7 @@
 import React, {useEffect, useState} from 'react';
 import { DataGrid, GridColDef} from '@material-ui/data-grid';
-import ZChart from './charts/chart';
+import ZChart from './charts/quadchart';
+import ZTimeSeries from "./charts/timeseries";
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 95 },
@@ -81,15 +82,16 @@ function Zillow() {
 
                 const dat =
                     <div>
-                        <div style={{ height: 650, width: '100%' }}>
+                        <div style={{ height: 400, width: '100%' }}>
                             <DataGrid
                                 rows={curData}
                                 columns={columns}
-                                pageSize={10}
+                                pageSize={5}
                                 disableSelectionOnClick
                             />
                         </div>
                         <ZChart chartData={curData}/>
+                        <ZTimeSeries chartData={curData}/>
                     </div>
 
                 // @ts-ignore

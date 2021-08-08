@@ -22,11 +22,15 @@ class ZChart extends React.Component<Props> {
                             y: this.props.chartData.map((f: any) => f.forecasts),
                             type: 'scatter',
                             mode: 'markers',
+                            transforms: [{
+                                type: 'groupby',
+                                groups:  this.props.chartData.map((s: any) => s.state)
+                            }],
                             marker: {
                                 symbol: 'circle',
-                                color: this.props.chartData.map((pop: any) => pop.priceGrowth),
                                 size: this.props.chartData.map((range: any) => range.populationGrowth),
-                                sizeref: 10
+                                // sizeref: 4,
+                                sizemode: 'area'
                             },
                             text: this.props.chartData.map((c: any) => c.city + ', ' + c.state + ' ' + c.zip),
                             hovertemplate:
@@ -34,17 +38,22 @@ class ZChart extends React.Component<Props> {
                                 "Avg. Price Forecast: %{y:$,.0f}<br>" +
                                 "Upper/Lower Price Deviation: %{x:.0%}<br>" +
                                 "Population Growth Rate (2018): %{marker.size:,}%<br>" +
-                                "Price Growth Rate: %{marker.color:.0%}" +
                                 "<extra></extra>"
                       }
                     ]}
                     layout={{
                         width: 900,
                         height: 750,
-                        title: '5yr Price Forecasts and Price Range Deviation',
+                        title: 'Top 50 Growing Zip Codes 5yr Price Forecasts and Price Range Deviation',
+                        hovermode: "closest",
+                        hoverlabel: { bgcolor: "#FFF" },
+                        legend: {orientation: 'h', y: -0.3},
                         xaxis: {
                             title: {
-                                text: 'Deviation range from forecast',
+                                text: 'Upper/Lower Price Deviation',
+                                font: {
+                                    size:18
+                                },
                                 standoff: 300
                             },
                             tickformat: '.0%',
@@ -56,8 +65,11 @@ class ZChart extends React.Component<Props> {
                         },
                         yaxis: {
                             title: {
-                                text: '5yr price forecast (USD)',
-                                standoff: 500
+                                text: 'Price Forecast (USD)',
+                                font: {
+                                    size:18
+                                },
+                                standoff: 450
                             },
                             tickformat: '$,.0f',
                             showline: true,

@@ -6,9 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import FormControl from '@material-ui/core/FormControl';
 import Select from '@material-ui/core/Select';
 
-import Zillow from './zillow';
-import Rideshare from './rideshare';
-import Salary from './salary';
+import Zillow from './zillow/zillow';
+import Rideshare from './rideshare/rideshare';
+import Salary from './salary/salary';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
