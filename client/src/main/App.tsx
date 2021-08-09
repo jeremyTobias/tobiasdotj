@@ -7,7 +7,7 @@ import Projects from '../components/Projects/projects';
 import Nav from '../components/Nav/nav';
 import Contact from '../components/Contact/contact';
 
-// import '../styles/App.css';
+//import '../styles/App.css';
 
 function App() {
 

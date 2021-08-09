@@ -4,8 +4,8 @@ import Select from "@material-ui/core/Select";
 import MenuItem from "@material-ui/core/MenuItem";
 import FormControl from "@material-ui/core/FormControl";
 import {Button} from "@material-ui/core";
-import {DataGrid} from "@material-ui/data-grid";
-import ZChart from "./quadchart";
+import TextField from '@material-ui/core/TextField'
+import Autocomplete from '@material-ui/lab/Autocomplete';
 import Plot from "react-plotly.js";
 
 interface Props {
@@ -26,22 +26,23 @@ class ZTimeSeries extends React.Component<Props, State> {
             forecasting: ''
         }
     }
-    handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
+
+    handleChange = (event: any, value: any) => {
         this.setState({
-            zipcode: event.target.value
+            zipcode: value
         });
     };
 
     doForecast = () => {
         this.setState({
-            forecasting: 'Forecasting ' + this.state.zipcode
+            forecasting: 'Forecasting ' + this.state.zipcode + ', please wait.'
         })
 
         fetch('/zillow/forecast/' + this.state.zipcode )
             .then((res) => res.json())
             .then((data) => {
                 let count = 0;
-                let curData = JSON.parse(data.data).data.map((d: any) => {
+                const curData = JSON.parse(data.data).data.map((d: any) => {
                     return({
                         id: count++,
                         date: d.ds,
@@ -51,29 +52,42 @@ class ZTimeSeries extends React.Component<Props, State> {
                     });
                 }) || 'Nothing to show';
 
+                const dates = curData.map((d: any) => new Date(d.date));
+                const firstDate = Math.min(...dates);
+                const lastDate = Math.max(...dates);
+
                 const plot =
                     <Plot
                         data={[
                             {
                                 x: curData.map((d: any) => d.date),
-                                y: curData.map((d: any) => d.fcast),
-                                name: 'Avg. Price',
-                                type: 'scatter',
-                                mode: 'lines'
-                            },
-                            {
-                                x: curData.map((d: any) => d.date),
                                 y: curData.map((d: any) => d.upper),
                                 name: 'High Price',
                                 type: 'scatter',
-                                mode: 'lines'
+                                mode: 'lines',
+                                line: {
+                                    color: '#13F113'
+                                }
+                            },
+                            {
+                                x: curData.map((d: any) => d.date),
+                                y: curData.map((d: any) => d.fcast),
+                                name: 'Avg. Price',
+                                type: 'scatter',
+                                mode: 'lines',
+                                line: {
+                                    color: '#0C8BF6'
+                                }
                             },
                             {
                                 x: curData.map((d: any) => d.date),
                                 y: curData.map((d: any) => d.lower),
                                 name: 'Low Price',
                                 type: 'scatter',
-                                mode: 'lines'
+                                mode: 'lines',
+                                line: {
+                                    color: '#F6400C'
+                                }
                             }
                         ]}
                         layout={{
@@ -96,18 +110,19 @@ class ZTimeSeries extends React.Component<Props, State> {
                                 rangeselector: {
                                   buttons: [{
                                       count: 1,
-                                      label: '1m',
-                                      step: 'month',
+                                      label: '1y',
+                                      step: 'year',
                                       stepmode: 'backward'
                                   },{
-                                      count: 6,
-                                      label: '6m',
-                                      step: 'month',
+                                      count: 5,
+                                      label: '5y',
+                                      step: 'year',
                                       stepmode: 'backward'
                                   },{
                                       step: 'all'
                                   }]
                                 },
+                                rangeslider: {range: [firstDate, lastDate]},
                                 showline: false,
                                 showgrid: false,
                                 zeroline: false
@@ -142,27 +157,32 @@ class ZTimeSeries extends React.Component<Props, State> {
     }
 
     render() {
+        const zipcodes = this.props.chartData.map((c: any) => c.zip.toString());
+        const forecast = this.state.forecasting;
+
         return (
             <div>
-                <FormControl variant='filled'>
-                    <InputLabel id='zipcodes'>Zip Codes</InputLabel>
-                    <Select
-                        labelId='project-selector'
-                        id='project-select'
-                        defaultValue='20105'
-                        value={this.state.zipcode}
+                <div style={{ width: 150 }}>
+                    <Autocomplete
+                        id='zipcode-select'
+                        freeSolo
+                        options={zipcodes}
                         onChange={this.handleChange}
-                    >
-                        {
-                            this.props.chartData.map((c: any) => (
-                                <MenuItem value={c.zip.toString()} key={c.zip}>{c.zip}</MenuItem>
-                            ))
-                        }
-                    </Select>
-                    <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
-                </FormControl>
+                        defaultValue='20105'
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                label='Zip Code Selection'
+                                margin='normal'
+                                variant='outlined'
+                            />
+                        )}
+
+                    />
+                </div>
+                <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
                 <p>Current selection: {this.showZip()}</p>
-                <div>{this.state.forecasting}</div>
+                <div>{forecast}</div>
             </div>
         )
     }
