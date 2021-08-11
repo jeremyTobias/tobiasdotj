@@ -1,12 +1,11 @@
 import React from 'react';
-import InputLabel from "@material-ui/core/InputLabel";
-import Select from "@material-ui/core/Select";
-import MenuItem from "@material-ui/core/MenuItem";
-import FormControl from "@material-ui/core/FormControl";
 import {Button} from "@material-ui/core";
 import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Plot from "react-plotly.js";
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
 
 interface Props {
     chartData: any;
@@ -26,6 +25,19 @@ class ZTimeSeries extends React.Component<Props, State> {
             forecasting: ''
         }
     }
+
+    useStyles = makeStyles((theme: Theme) =>
+      createStyles({
+        root: {
+          flexGrow: 1,
+        },
+        paper: {
+          padding: theme.spacing(2),
+          textAlign: 'center',
+          color: theme.palette.text.secondary,
+        },
+      }),
+    );
 
     handleChange = (event: any, value: any) => {
         this.setState({
@@ -91,8 +103,8 @@ class ZTimeSeries extends React.Component<Props, State> {
                             }
                         ]}
                         layout={{
-                            width: 900,
-                            height: 550,
+                            //width: 900,
+                            //height: 550,
                             title: this.state.zipcode + ' Price Forecast',
                             hovermode: 'closest',
                             hoverlabel: { bgcolor: "#FFF" },
@@ -133,7 +145,7 @@ class ZTimeSeries extends React.Component<Props, State> {
                                     font: {
                                         size:18
                                     },
-                                    standoff: 450
+                                    standoff: 475
                                 },
                                 autorange: true,
                                 tickformat: '$,.0f',
@@ -150,15 +162,10 @@ class ZTimeSeries extends React.Component<Props, State> {
             });
     }
 
-    showZip = () => {
-        if (this.state!== null && this.state.zipcode !== undefined) {
-            return this.state.zipcode;
-        }
-    }
-
     render() {
         const zipcodes = this.props.chartData.map((c: any) => c.zip.toString());
         const forecast = this.state.forecasting;
+        const classes = this.useStyles;
 
         return (
             <div>
@@ -181,7 +188,6 @@ class ZTimeSeries extends React.Component<Props, State> {
                     />
                 </div>
                 <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
-                <p>Current selection: {this.showZip()}</p>
                 <div>{forecast}</div>
             </div>
         )

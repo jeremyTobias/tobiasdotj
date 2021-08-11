@@ -13,14 +13,15 @@ import Salary from './salary/salary';
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
     root: {
-      backgroundColor: theme.palette.background.paper,
+        //flexGrow: 1,
+        backgroundColor: theme.palette.background.paper,
     },
     formControl: {
-      margin: theme.spacing(1),
-      minWidth: 120,
+        margin: theme.spacing(1),
+        minWidth: 120,
     },
     selectEmpty: {
-      marginTop: theme.spacing(2),
+        marginTop: theme.spacing(2),
     },
   }),
 );

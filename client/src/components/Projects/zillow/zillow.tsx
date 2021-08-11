@@ -2,6 +2,22 @@ import React, {useEffect, useState} from 'react';
 import { DataGrid, GridColDef} from '@material-ui/data-grid';
 import ZChart from './charts/quadchart';
 import ZTimeSeries from "./charts/timeseries";
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import Paper from '@material-ui/core/Paper';
+import Grid from '@material-ui/core/Grid';
+
+const useStyles = makeStyles((theme: Theme) =>
+  createStyles({
+    root: {
+      flexGrow: 1,
+    },
+    paper: {
+      padding: theme.spacing(2),
+      textAlign: 'center',
+      color: theme.palette.text.secondary,
+    },
+  }),
+);
 
 const columns: GridColDef[] = [
     { field: 'id', headerName: 'ID', width: 95 },
@@ -60,6 +76,8 @@ function Zillow() {
     const [projectData, setProjectData] = useState();
     let curData: any;
 
+    const classes = useStyles();
+
     useEffect(() => {
         fetch('/zillow')
             .then((res) => res.json())
@@ -81,7 +99,7 @@ function Zillow() {
                 }) || 'Nothing to show';
 
                 const dat =
-                    <div>
+                    <div className={classes.root}>
                         <div style={{ height: 400, width: '100%' }}>
                             <DataGrid
                                 rows={curData}
@@ -90,8 +108,18 @@ function Zillow() {
                                 disableSelectionOnClick
                             />
                         </div>
-                        <ZChart chartData={curData}/>
-                        <ZTimeSeries chartData={curData}/>
+                        <Grid container spacing={2}>
+                            <Grid item xs>
+                                <Paper className={classes.paper}>
+                                    <ZChart chartData={curData}/>
+                                </Paper>
+                            </Grid>
+                            <Grid item xs={6}>
+                                <Paper className={classes.paper}>
+                                    <ZTimeSeries chartData={curData}/>
+                                </Paper>
+                            </Grid>
+                        </Grid>
                     </div>
 
                 // @ts-ignore
