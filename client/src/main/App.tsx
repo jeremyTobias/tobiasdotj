@@ -45,7 +45,7 @@ function App() {
         '/' :()=> <Home/>,
         '/about' :()=> <About/>,
         '/projects' :()=> <Projects/>,
-        '/project/:proj' :({proj})=> <Project proj={proj} />,
+        '/project/:proj' :({proj}: any)=> <Project proj={proj} />,
         '/contact' :()=> <Contact/>
     };
 

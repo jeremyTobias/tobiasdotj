@@ -11,6 +11,7 @@ function Project(props: Props) {
     const proj = props.proj;
     const [projectData, setProjectData] = useState();
 
+
     useEffect(() => {
         console.log(proj);
         if (proj === 'zillow' || proj === undefined) {
