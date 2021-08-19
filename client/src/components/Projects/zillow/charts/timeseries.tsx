@@ -4,7 +4,8 @@ import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Plot from "react-plotly.js";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Grid from '@material-ui/core/Grid';
+import {Container} from '@material-ui/core'
+import {Col, Row} from "react-bootstrap";
 
 interface Props {
     chartData: any;
@@ -26,17 +27,17 @@ class ZTimeSeries extends React.Component<Props, State> {
     }
 
     useStyles = makeStyles((theme: Theme) =>
-      createStyles({
-        root: {
-          flexGrow: 1,
-        },
-        paper: {
-          padding: theme.spacing(2),
-          textAlign: 'center',
-          color: theme.palette.text.secondary,
-        },
-      }),
-    );
+          createStyles({
+            root: {
+              flexGrow: 1,
+            },
+            paper: {
+              padding: theme.spacing(2),
+              textAlign: 'center',
+              color: theme.palette.text.secondary,
+            },
+          }),
+        );
 
     handleChange = (event: any, value: any) => {
         this.setState({
@@ -164,34 +165,35 @@ class ZTimeSeries extends React.Component<Props, State> {
     render() {
         const zipcodes = this.props.chartData.map((c: any) => c.zip.toString());
         const forecast = this.state.forecasting;
-        const classes = this.useStyles;
+        // const classes = this.useStyles;
 
         return (
             <div>
-                <Grid container spacing={2}>
-                    <Grid item xs>
-                        <Autocomplete
-                            id='zipcode-select'
-                            freeSolo
-                            options={zipcodes}
-                            onChange={this.handleChange}
-                            defaultValue='20105'
-                            renderInput={(params) => (
-                                <TextField
-                                    {...params}
-                                    label='Zip Code Selection'
-                                    margin='normal'
-                                    variant='outlined'
-                                />
-                            )}
-
-                        />
-                    </Grid>
-                    <Grid item xs>
-                        <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
-                    </Grid>
-                </Grid>
-                <div>{forecast}</div>
+                <Container>
+                    <Row>
+                        <Col xs={4}>
+                            <Autocomplete
+                                id='zipcode-select'
+                                freeSolo
+                                options={zipcodes}
+                                onChange={this.handleChange}
+                                defaultValue='20105'
+                                renderInput={(params) => (
+                                    <TextField
+                                        {...params}
+                                        label='Zip Code Selection'
+                                        margin='normal'
+                                        variant='outlined'
+                                    />
+                                )}
+                            />
+                        </Col>
+                        <Col xs={8}>
+                            <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
+                        </Col>
+                    </Row>
+                </Container>
+                <Container>{forecast}</Container>
             </div>
         )
     }

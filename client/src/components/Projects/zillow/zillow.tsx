@@ -128,7 +128,7 @@ function Zillow() {
     }, []);
 
     return (
-        <div>{projectData}</div>
+        <React.Fragment>{projectData}</React.Fragment>
     );
 }
 

@@ -51,8 +51,12 @@ function App() {
     return (
         <div className={classes.root}>
             <CssBaseline />
+            <header>
+                <Container>
+                    <Nav title='TobiasDotJ' sections={sections}/>
+                </Container>
+            </header>
             <Container component='main' className={classes.main}>
-                <Nav title='TobiasDotJ' sections={sections}/>
                 {routeResults||<h1>PAGE NOT FOUND</h1>}
             </Container>
             <footer className={classes.footer}>

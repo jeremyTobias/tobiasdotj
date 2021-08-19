@@ -4,9 +4,7 @@ function About() {
 
   return (
     <div className="About">
-      <header className="About-header">
-        <p>Ding Dong</p>
-      </header>
+      <p>Ding Dong</p>
     </div>
   );
 }
