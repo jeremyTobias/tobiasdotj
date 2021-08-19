@@ -4,7 +4,6 @@ import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Plot from "react-plotly.js";
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
 
 interface Props {
@@ -169,25 +168,29 @@ class ZTimeSeries extends React.Component<Props, State> {
 
         return (
             <div>
-                <div style={{ width: 150 }}>
-                    <Autocomplete
-                        id='zipcode-select'
-                        freeSolo
-                        options={zipcodes}
-                        onChange={this.handleChange}
-                        defaultValue='20105'
-                        renderInput={(params) => (
-                            <TextField
-                                {...params}
-                                label='Zip Code Selection'
-                                margin='normal'
-                                variant='outlined'
-                            />
-                        )}
+                <Grid container spacing={2}>
+                    <Grid item xs>
+                        <Autocomplete
+                            id='zipcode-select'
+                            freeSolo
+                            options={zipcodes}
+                            onChange={this.handleChange}
+                            defaultValue='20105'
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label='Zip Code Selection'
+                                    margin='normal'
+                                    variant='outlined'
+                                />
+                            )}
 
-                    />
-                </div>
-                <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
+                        />
+                    </Grid>
+                    <Grid item xs>
+                        <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
+                    </Grid>
+                </Grid>
                 <div>{forecast}</div>
             </div>
         )

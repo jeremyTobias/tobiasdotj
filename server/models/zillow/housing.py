@@ -5,7 +5,7 @@ from sqlalchemy.dialects.postgresql import JSON
 class Housing(db.Model):
     __tablename__ = 'top_pop_housing'
 
-    zip = db.Column('ZipCode', db.Integer, primary_key=True)
+    zip = db.Column('ZipCode', db.Text, primary_key=True)
     state = db.Column('State', db.Text, nullable=False)
     city = db.Column('City', db.Text, nullable=False)
     metro = db.Column('Metro', db.Text, nullable=False)
