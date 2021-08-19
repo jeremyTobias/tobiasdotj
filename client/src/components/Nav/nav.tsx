@@ -27,7 +27,7 @@ function Nav(props: any) {
     const classes = useStyles();
     const {sections, title} = props;
     return (
-        <React.Fragment>
+        <div>
             <Toolbar className={classes.toolbar}>
                 <Typography
                   component="h2"
@@ -50,7 +50,7 @@ function Nav(props: any) {
             </Toolbar>
             <Toolbar component='nav' variant='dense' className={classes.toolbarSecondary}>
                 {sections.map((section: any) => (
-                    <Link
+                    <A
                     color='inherit'
                     noWrap
                     key={section.title}
@@ -58,10 +58,10 @@ function Nav(props: any) {
                     href={section.url}
                     className={classes.toolbarLink}>
                         {section.title}
-                    </Link>
+                    </A>
                 ))}
             </Toolbar>
-        </React.Fragment>
+        </div>
     )
 }
 
