@@ -1,70 +1,86 @@
-import React, {useEffect, useState} from 'react';
-// @ts-ignore
+import React from 'react';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-import Zillow from './zillow/zillow';
-import Rideshare from './rideshare/rideshare';
-import Salary from './salary/salary';
+import {
+    Card,
+    CardActionArea,
+    CardActions,
+    CardContent,
+    CardMedia,
+    Typography,
+    Button
+} from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-        //flexGrow: 1,
-        backgroundColor: theme.palette.background.paper,
-    },
-    formControl: {
-        margin: theme.spacing(1),
-        minWidth: 120,
-    },
-    selectEmpty: {
-        marginTop: theme.spacing(2),
-    },
+      root: {
+          flexGrow: 1,
+      },
+      card: {
+          margin: theme.spacing(1),
+          display: 'inline-block',
+          maxWidth: 345,
+      }
   }),
 );
 
 function Projects() {
     const classes = useStyles();
-    const [project, setProject] = useState();
-    const [projectData, setProjectData] = useState();
 
-    const handleChange = (event: React.ChangeEvent<{ value: unknown }>) => {
-        // @ts-ignore
-        setProject(event.target.value as string);
-    };
-
-    useEffect(() => {
-        if (project === 'zillow' || project === undefined) {
-            // @ts-ignore
-            setProjectData(<Zillow />)
-        } else if (project === 'salary') {
-            // @ts-ignore
-            setProjectData(<Salary />)
-        } else if (project === 'rideshare') {
-            // @ts-ignore
-            setProjectData(<Rideshare />)
-        }
-    }, [project]);
+    const projectsList = [
+        {
+            name: 'zillow',
+            imgLoc: 'assets/zillow.jpg',
+            altText: 'zillow housing image',
+            title: 'Zillow Housing Forecast',
+            header: 'Zillow',
+            text: 'Words about things...',
+        },
+        {
+            name: 'salary',
+            imgLoc: 'assets/zillow.jpg',
+            altText: 'zillow housing image',
+            title: 'NCAA B\'ball Coach Salary Prediction',
+            header: 'Salary',
+            text: 'Words about things...',
+        },
+        {
+            name: 'rideshare',
+            imgLoc: 'assets/zillow.jpg',
+            altText: 'zillow housing image',
+            title: 'Chicago Rideshare Analysis',
+            header: 'Rideshare',
+            text: 'Words about things...',
+        },
+    ]
 
     return (
       <div className='Projects'>
-          <FormControl variant='filled' className={classes.formControl}>
-              <InputLabel id='demo-simple-select-filled-label'>Project</InputLabel>
-              <Select
-                  labelId='project-selector'
-                  id='project-select'
-                  defaultValue={'zillow'}
-                  onChange={handleChange}
-              >
-                  <MenuItem value={'zillow'}>Zillow Housing</MenuItem>
-                  <MenuItem value={'salary'}>Salary Prediction</MenuItem>
-                  <MenuItem value={'rideshare'}>O'Hare Rideshare</MenuItem>
-              </Select>
-          </FormControl>
-          {projectData}
+          {projectsList.map((project: any) => (
+              <Card className={classes.card}>
+                  <CardActionArea href={'/project/' + project.name}>
+                      <CardMedia
+                        component='img'
+                        alt={project.altText}
+                        height='140'
+                        image={project.imgLoc}
+                        title={project.title}
+                      />
+                      <CardContent>
+                          <Typography gutterBottom variant='h5' component='h2'>
+                              {project.header}
+                          </Typography>
+                          <Typography variant='body2' color='textSecondary' component='p'>
+                              {project.text}
+                          </Typography>
+                      </CardContent>
+                  </CardActionArea>
+                  <CardActions>
+                      <Button size='small' color='primary'>
+                          Learn more
+                      </Button>
+                  </CardActions>
+              </Card>
+          ))}
       </div>
     );
 }

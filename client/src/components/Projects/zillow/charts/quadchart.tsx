@@ -42,7 +42,7 @@ class ZChart extends React.Component<Props> {
                       }
                     ]}
                     layout={{
-                        //width: 650,
+                        //width: 450,
                         //height: 650,
                         title: 'Top 50 Growing Zip Codes 5yr Price Forecasts and Price Range Deviation',
                         hovermode: "closest",

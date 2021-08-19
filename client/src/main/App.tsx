@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import {A, useRoutes} from 'hookrouter';
+import {useRoutes} from 'hookrouter';
 import Home from '../components/Home/home';
 import About from '../components/About/about';
 import Projects from '../components/Projects/projects';
@@ -10,6 +10,7 @@ import Footer from "../components/Misc/Footer";
 import {CssBaseline} from "@material-ui/core";
 import {makeStyles} from "@material-ui/core/styles";
 import Container from "@material-ui/core/Container";
+import Project from "../components/Projects/project";
 
 const sections = [
     {title: 'Projects', url: '/projects'},
@@ -20,19 +21,20 @@ const sections = [
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    display: 'flex',
-    flexDirection: 'column',
-    minHeight: '100vh',
+      display: 'flex',
+      flexDirection: 'column',
+      minHeight: '100vh',
+      backgroundColor: theme.palette.grey[500],
+      color: 'whitesmoke'
   },
   main: {
-    marginTop: theme.spacing(8),
-    marginBottom: theme.spacing(2),
+      paddingTop: theme.spacing(8),
+      marginTop: theme.spacing(8),
+      marginBottom: theme.spacing(2),
   },
   footer: {
-    padding: theme.spacing(3, 2),
-    marginTop: 'auto',
-    backgroundColor:
-      theme.palette.type === 'light' ? theme.palette.grey[200] : theme.palette.grey[800],
+      padding: theme.spacing(3, 2),
+      marginTop: 'auto',
   },
 }));
 
@@ -43,6 +45,7 @@ function App() {
         '/' :()=> <Home/>,
         '/about' :()=> <About/>,
         '/projects' :()=> <Projects/>,
+        '/project/:proj' :({proj})=> <Project proj={proj} />,
         '/contact' :()=> <Contact/>
     };
 

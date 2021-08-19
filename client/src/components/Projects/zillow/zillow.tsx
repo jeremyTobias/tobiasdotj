@@ -8,14 +8,25 @@ import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      flexGrow: 1,
-    },
-    paper: {
-      padding: theme.spacing(2),
-      textAlign: 'center',
-      color: theme.palette.text.secondary,
-    },
+      root: {
+          flexGrow: 1,
+      },
+      paper: {
+          margin: theme.spacing(1),
+          padding: theme.spacing(1),
+          justifyContent: 'center',
+          textAlign: 'center',
+          color: theme.palette.text.secondary,
+          backgroundColor: theme.palette.grey[200]
+      },
+      dataTable: {
+          margin: theme.spacing(1),
+          padding: theme.spacing(2),
+          textAlign: 'center',
+          color: theme.palette.text.secondary,
+          height: 425,
+          backgroundColor: theme.palette.grey[200]
+      }
   }),
 );
 
@@ -24,7 +35,8 @@ const columns: GridColDef[] = [
     {
         field: 'zip',
         headerName: 'Zip Code',
-        width: 135},
+        width: 135,
+    },
     {
         field: 'state',
         headerName: 'State',
@@ -81,7 +93,7 @@ function Zillow() {
     useEffect(() => {
         fetch('/zillow')
             .then((res) => res.json())
-            .then((data) => {
+            .then((data: any) => {
                 let count = 0;
                 curData = data.data.map((d: any) => {
                     return({
@@ -100,21 +112,20 @@ function Zillow() {
 
                 const dat =
                     <div className={classes.root}>
-                        <div style={{ height: 400, width: '100%' }}>
-                            <DataGrid
+                        <DataGrid
+                                className={classes.dataTable}
                                 rows={curData}
                                 columns={columns}
                                 pageSize={5}
                                 disableSelectionOnClick
-                            />
-                        </div>
+                        />
                         <Grid container spacing={2}>
                             <Grid item xs>
                                 <Paper className={classes.paper}>
                                     <ZChart chartData={curData}/>
                                 </Paper>
                             </Grid>
-                            <Grid item xs={6}>
+                            <Grid item xs>
                                 <Paper className={classes.paper}>
                                     <ZTimeSeries chartData={curData}/>
                                 </Paper>

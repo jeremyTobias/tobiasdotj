@@ -1,5 +1,5 @@
 import React from 'react';
-import {Button} from "@material-ui/core";
+import {Button, Grid} from "@material-ui/core";
 import TextField from '@material-ui/core/TextField'
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Plot from "react-plotly.js";
@@ -14,6 +14,7 @@ interface Props {
 interface State {
     zipcode: any;
     forecasting: any;
+    styles: any;
 }
 
 class ZTimeSeries extends React.Component<Props, State> {
@@ -22,22 +23,25 @@ class ZTimeSeries extends React.Component<Props, State> {
 
         this.state = {
             zipcode: 20105,
-            forecasting: ''
+            forecasting: '',
+            styles: makeStyles((theme: Theme) =>
+                        createStyles({
+                            root: {
+                                flexGrow: 1,
+                                color: 'whitesmoke',
+                                justifyContent: 'center',
+                                backgroundColor:
+                                    theme.palette.grey[100]
+                            },
+                            paper: {
+                                padding: theme.spacing(2),
+                                textAlign: 'center',
+                                color: theme.palette.text.secondary,
+                            },
+                        }),
+                    )
         }
     }
-
-    useStyles = makeStyles((theme: Theme) =>
-          createStyles({
-            root: {
-              flexGrow: 1,
-            },
-            paper: {
-              padding: theme.spacing(2),
-              textAlign: 'center',
-              color: theme.palette.text.secondary,
-            },
-          }),
-        );
 
     handleChange = (event: any, value: any) => {
         this.setState({
@@ -103,7 +107,7 @@ class ZTimeSeries extends React.Component<Props, State> {
                             }
                         ]}
                         layout={{
-                            //width: 900,
+                            //width: 450,
                             //height: 550,
                             title: this.state.zipcode + ' Price Forecast',
                             hovermode: 'closest',
@@ -165,13 +169,13 @@ class ZTimeSeries extends React.Component<Props, State> {
     render() {
         const zipcodes = this.props.chartData.map((c: any) => c.zip.toString());
         const forecast = this.state.forecasting;
-        // const classes = this.useStyles;
+        const classes = this.state.styles;
 
         return (
             <div>
-                <Container>
-                    <Row>
-                        <Col xs={4}>
+                <Container className={classes.root}>
+                    <Grid container spacing={2}>
+                        <Grid item sm={4}>
                             <Autocomplete
                                 id='zipcode-select'
                                 freeSolo
@@ -187,11 +191,11 @@ class ZTimeSeries extends React.Component<Props, State> {
                                     />
                                 )}
                             />
-                        </Col>
-                        <Col xs={8}>
+                        </Grid>
+                        <Grid item sm={8}>
                             <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
-                        </Col>
-                    </Row>
+                        </Grid>
+                    </Grid>
                 </Container>
                 <Container>{forecast}</Container>
             </div>
