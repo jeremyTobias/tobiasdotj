@@ -56,8 +56,8 @@ function Projects() {
     return (
       <div className='Projects'>
           {projectsList.map((project: any) => (
-              <Card className={classes.card}>
-                  <CardActionArea href={'/project/' + project.name}>
+              <Card className={classes.card} key={project.name}>
+                  <CardActionArea component='a' href={'/project/' + project.name}>
                       <CardMedia
                         component='img'
                         alt={project.altText}
