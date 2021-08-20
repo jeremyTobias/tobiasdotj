@@ -5,7 +5,6 @@ import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
     Card,
     CardActionArea,
-    CardActions,
     CardContent,
     CardMedia,
     Typography
@@ -13,13 +12,16 @@ import {
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-      root: {
+      projectsRoot: {
           flexGrow: 1,
+          margin: 'auto',
       },
       card: {
           margin: theme.spacing(1),
+          padding: theme.spacing(1),
           display: 'inline-block',
-          maxWidth: 345,
+          height: 250,
+          width: 345,
       }
   }),
 );
@@ -30,32 +32,32 @@ function Projects() {
     const projectsList = [
         {
             name: 'zillow',
-            imgLoc: 'assets/zillow.jpg',
+            imgLoc: 'imgs/zillow.jpg',
             altText: 'zillow housing image',
             title: 'Zillow Housing Forecast',
-            header: 'Zillow',
-            text: 'Words about things...',
+            header: 'Housing Price Forecast',
+            text: 'Forecasting housing prices with time series and FB Prophet',
         },
         {
             name: 'salary',
-            imgLoc: 'assets/zillow.jpg',
+            imgLoc: 'imgs/salary.jpg',
             altText: 'zillow housing image',
             title: 'NCAA B\'ball Coach Salary Prediction',
-            header: 'Salary',
-            text: 'Words about things...',
+            header: 'Salary Prediction',
+            text: 'Predicting coaches salary using multi-variate linear regression',
         },
         {
             name: 'rideshare',
-            imgLoc: 'assets/zillow.jpg',
+            imgLoc: 'imgs/zillow.jpg',
             altText: 'zillow housing image',
             title: 'Chicago Rideshare Analysis',
             header: 'Rideshare',
-            text: 'Words about things...',
+            text: 'Uber and stuff',
         },
     ]
 
     return (
-      <div className='Projects'>
+      <div className={classes.projectsRoot}>
           {projectsList.map((project: any) => (
               <A href={'/project/' + project.name}  key={project.name}>
                   <Card className={classes.card}>

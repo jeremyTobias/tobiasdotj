@@ -20,22 +20,25 @@ const sections = [
 ]
 
 const useStyles = makeStyles((theme) => ({
-  root: {
-      display: 'flex',
-      flexDirection: 'column',
-      minHeight: '100vh',
-      backgroundColor: theme.palette.grey[500],
-      color: 'whitesmoke'
-  },
-  main: {
-      paddingTop: theme.spacing(8),
-      marginTop: theme.spacing(8),
-      marginBottom: theme.spacing(2),
-  },
-  footer: {
-      padding: theme.spacing(3, 2),
-      marginTop: 'auto',
-  },
+    root: {
+        display: 'flex',
+        flexDirection: 'column',
+        minHeight: '100vh',
+        backgroundColor: theme.palette.grey[500],
+        color: 'whitesmoke'
+    },
+    main: {
+        paddingTop: theme.spacing(8),
+        marginTop: theme.spacing(8),
+        marginBottom: theme.spacing(2),
+    },
+    footer: {
+        padding: theme.spacing(3, 2),
+        marginTop: 'auto',
+        marginLeft: 'auto',
+        marginRight: 'auto',
+        borderTop: `1px solid ${theme.palette.divider}`,
+    },
 }));
 
 function App() {
@@ -63,7 +66,7 @@ function App() {
                 {routeResults||<h1>PAGE NOT FOUND</h1>}
             </Container>
             <footer className={classes.footer}>
-                <Container>
+                <Container maxWidth='sm'>
                     <Footer />
                 </Container>
             </footer>
