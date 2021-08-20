@@ -1,4 +1,6 @@
 import React from 'react';
+// @ts-ignore
+import {A} from 'hookrouter';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
     Card,
@@ -6,8 +8,7 @@ import {
     CardActions,
     CardContent,
     CardMedia,
-    Typography,
-    Button
+    Typography
 } from '@material-ui/core';
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -56,30 +57,27 @@ function Projects() {
     return (
       <div className='Projects'>
           {projectsList.map((project: any) => (
-              <Card className={classes.card} key={project.name}>
-                  <CardActionArea component='a' href={'/project/' + project.name}>
-                      <CardMedia
-                        component='img'
-                        alt={project.altText}
-                        height='140'
-                        image={project.imgLoc}
-                        title={project.title}
-                      />
-                      <CardContent>
-                          <Typography gutterBottom variant='h5' component='h2'>
-                              {project.header}
-                          </Typography>
-                          <Typography variant='body2' color='textSecondary' component='p'>
-                              {project.text}
-                          </Typography>
-                      </CardContent>
-                  </CardActionArea>
-                  <CardActions>
-                      <Button size='small' color='primary'>
-                          Learn more
-                      </Button>
-                  </CardActions>
-              </Card>
+              <A href={'/project/' + project.name}  key={project.name}>
+                  <Card className={classes.card}>
+                      <CardActionArea>
+                          <CardMedia
+                            component='img'
+                            alt={project.altText}
+                            height='140'
+                            image={project.imgLoc}
+                            title={project.title}
+                          />
+                          <CardContent>
+                              <Typography gutterBottom variant='h5' component='h2'>
+                                  {project.header}
+                              </Typography>
+                              <Typography variant='body2' color='textSecondary' component='p'>
+                                  {project.text}
+                              </Typography>
+                          </CardContent>
+                      </CardActionArea>
+                  </Card>
+              </A>
           ))}
       </div>
     );

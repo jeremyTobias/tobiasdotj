@@ -61,7 +61,6 @@ function Nav(props: any) {
                     {sections.map((section: any) => (
                         <A
                             color='inherit'
-                            noWrap
                             key={section.title}
                             variant='body2'
                             href={section.url}
