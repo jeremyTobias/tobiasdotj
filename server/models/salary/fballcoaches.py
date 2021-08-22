@@ -40,7 +40,7 @@ class Fball:
 
         coach = pd.DataFrame(coach)
 
-        model = pickle.load(open('models/assets/coaches_all.pkl', 'rb'))
+        model = pickle.load(open('/app/server/models/assets/coaches_all.pkl', 'rb'))
         pred = model.predict(coach)
 
         preds = [round(x, 0) for x in pred]
