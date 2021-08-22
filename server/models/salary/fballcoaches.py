@@ -3,6 +3,7 @@ import pickle
 import numpy as np
 import pandas as pd
 import statsmodels.api as sm
+import os
 
 
 class Fball:
@@ -40,7 +41,7 @@ class Fball:
 
         coach = pd.DataFrame(coach)
 
-        model = pickle.load(open('/app/server/models/assets/coaches_all.pkl', 'rb'))
+        model = pickle.load(open(f'{os.environ["MODEL_ASSET_PATH"]}/coaches_all.pkl', 'rb'))
         pred = model.predict(coach)
 
         preds = [round(x, 0) for x in pred]

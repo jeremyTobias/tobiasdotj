@@ -1,11 +1,11 @@
-import React, {useEffect, useState} from 'react';
+import React, {useState} from 'react';
 import clsx from 'clsx';
 import {createStyles, Theme, makeStyles} from "@material-ui/core/styles";
 import {
     FormControl,
     FormHelperText,
     OutlinedInput,
-    InputAdornment, Button
+    InputAdornment, Button, Checkbox, FormControlLabel
 } from "@material-ui/core";
 
 const useStyles = makeStyles((theme: Theme) =>
@@ -55,7 +55,9 @@ interface State {
 
 function Salary() {
     const classes = useStyles();
-    const [predSal, setPredSal] = useState();
+    const [isChecked, setIsChecked] = useState(false);
+    const [predArch, setPredArch] = useState('');
+    const [predSal, setPredSal] = useState('');
     const [coachData, setCoachData] = useState<State>({
         'const' : 1,
         'Bonus' : 725093.5116,
@@ -83,9 +85,13 @@ function Salary() {
         'Conference_Sun_Belt_Conference' : 0,
     });
 
+    const saveData = () => {
+        setIsChecked(!isChecked);
+    };
+
     const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
         setCoachData({ ...coachData, [prop]: parseFloat(event.target.value) })
-    }
+    };
 
     const doPredSal = () => {
         fetch('/salary', {
@@ -102,14 +108,19 @@ function Salary() {
                 console.log(data);
                 let curData = data.data.map((d: any) => {
                     return(
-                        <p key={'salaryKey-' + d}>
-                            Predicted salary is {d.toLocaleString('en-US', {
+                        d.toLocaleString('en-US', {
                                     style: 'currency',
                                     currency: 'USD'
-                            })}
-                        </p>
+                            })
                     );
                 }) || 'Nothing to show';
+
+                if (isChecked) {
+                    setPredArch(predSal);
+                } else {
+                    setPredArch('')
+                }
+
                 setPredSal(curData);
             });
     };
@@ -141,11 +152,21 @@ function Salary() {
                   />
                   <FormHelperText id="outlined-avgattendnace-helper-text">Avg Home Game Attendance</FormHelperText>
               </FormControl>
-
               <Button onClick={doPredSal}>Click Me</Button>
+              <FormControl>
+                  <FormControlLabel control={<Checkbox onChange={saveData} checked={isChecked}/>}
+                                    label='Save Previous Prediction' />
+              </FormControl>
 
           </div>
-          {predSal}
+          {predSal !== '' &&
+            <div>
+                <p>Predicted Salary: {predSal}</p>
+                {predArch !== '' &&
+                <p>Previous Salary: {predArch}</p>
+                }
+            </div>
+          }
       </React.Fragment>
     );
 }
