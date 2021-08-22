@@ -1,6 +1,6 @@
 import React from 'react';
 // @ts-ignore
-import {A} from 'hookrouter';
+import { A } from 'hookrouter';
 import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
 import {
     Card,
@@ -44,16 +44,16 @@ function Projects() {
             altText: 'zillow housing image',
             title: 'NCAA B\'ball Coach Salary Prediction',
             header: 'Salary Prediction',
-            text: 'Predicting coaches salary using multi-variate linear regression',
+            text: 'Predicting coaches\' salary using multi-variate linear regression',
         },
-        {
+        /*{
             name: 'rideshare',
             imgLoc: 'imgs/zillow.jpg',
             altText: 'zillow housing image',
             title: 'Chicago Rideshare Analysis',
             header: 'Rideshare',
             text: 'Uber and stuff',
-        },
+        },*/
     ]
 
     return (

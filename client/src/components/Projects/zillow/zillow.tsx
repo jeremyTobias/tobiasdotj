@@ -1,10 +1,10 @@
-import React, {useEffect, useState} from 'react';
-import { DataGrid, GridColDef} from '@material-ui/data-grid';
+import React, { useEffect, useState } from 'react';
+import { DataGrid, GridColDef } from '@material-ui/data-grid';
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Paper, Grid } from '@material-ui/core';
+
 import ZChart from './charts/quadchart';
 import ZTimeSeries from "./charts/timeseries";
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
-import Grid from '@material-ui/core/Grid';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({

@@ -4,7 +4,7 @@ class ZModels:
     def __init__(self):
         pass
 
-    def forecast(df):
+    def forecast(self, df):
         dfp = df[['Date', 'Value']]
         dfp.columns = ['ds', 'y']
         m = Prophet(interval_width=0.95)

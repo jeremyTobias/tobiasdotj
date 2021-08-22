@@ -4,6 +4,7 @@ from dotenv import load_dotenv
 
 import pandas as pd
 import os
+import json
 
 load_dotenv()
 
@@ -16,6 +17,7 @@ db = SQLAlchemy(app)
 from .models.zillow.housing import Housing
 from .models.zillow.ztimeseries import ZForecast
 from .models.zillow.zmodels import ZModels
+from .models.salary.fballcoaches import Fball
 
 @app.route('/zillow', methods=['GET'])
 def zillow():
@@ -27,26 +29,38 @@ def zillow():
 
 @app.route('/zillow/forecast/<zipcode>', methods=['GET'])
 def zforecast(zipcode):
-    print(f'Response: {zipcode}')
     fdata = pd.read_sql_query(ZForecast.query.filter_by(zip=zipcode).statement, db.engine)
 
-    fcast = ZModels.forecast(fdata)
+    zcast = ZModels()
+
+    fcast = zcast.forecast(fdata)
 
     return jsonify({
         'data': fcast.to_json(orient='table')
     })
 
-@app.route('/salary', methods=['GET'])
+@app.route('/salary', methods=['GET', 'POST'])
 def salary():
-    return jsonify({'data': [{
-        'fake': 'Salary Data'}]
-    })
+    r = request.get_json()
 
+    coachData = r['coachData']
+
+    if coachData == 'None':
+        coachData = None
+
+    coaches = Fball()
+
+    data = coaches.predictSalary(coachData)
+
+    return jsonify({'data': data})
+
+'''
 @app.route('/rideshare', methods=['GET'])
 def rideshare():
     return jsonify({'data': [{
         'fake': 'Rideshare Data'}]
     })
+'''
 
 @app.route('/')
 def serve():

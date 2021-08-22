@@ -1,11 +1,8 @@
 import React from 'react';
-import {Button, Grid} from "@material-ui/core";
-import TextField from '@material-ui/core/TextField'
+import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
+import { Button, Grid, Container, TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Plot from "react-plotly.js";
-import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import {Container} from '@material-ui/core'
-import {Col, Row} from "react-bootstrap";
 
 interface Props {
     chartData: any;

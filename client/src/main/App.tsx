@@ -1,16 +1,16 @@
 import React from 'react';
 // @ts-ignore
-import {useRoutes} from 'hookrouter';
+import { useRoutes } from 'hookrouter';
+import { CssBaseline, Container } from "@material-ui/core";
+import { makeStyles } from "@material-ui/core/styles";
+
 import Home from '../components/Home/home';
 import About from '../components/About/about';
 import Projects from '../components/Projects/projects';
+import Project from "../components/Projects/project";
 import Nav from '../components/Nav/nav';
 import Contact from '../components/Contact/contact';
 import Footer from "../components/Misc/Footer";
-import {CssBaseline} from "@material-ui/core";
-import {makeStyles} from "@material-ui/core/styles";
-import Container from "@material-ui/core/Container";
-import Project from "../components/Projects/project";
 
 const sections = [
     {title: 'Projects', url: '/projects'},
