@@ -6,6 +6,10 @@ import statsmodels.api as sm
 import os
 
 
+def winlossConvert(coach):
+    return [(x / 100) if x > 1 else x for x in coach['head_coaches - wl_pct']]
+
+
 class Fball:
     def __init__(self):
         pass

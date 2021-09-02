@@ -73,7 +73,7 @@ function Salary() {
         'BonusPaid': 102001.0698,
         'Buyout': 2160417,
         'head_coaches - seasons_coached': 6,
-        'head_coaches - wl_pct': 0.553,
+        'head_coaches - wl_pct': 55.3,
         'head_coaches - tournament_wl_pct': 0,
         'AvgAttendance': 41696,
         'StadiumCapacity': 68400,
@@ -154,11 +154,17 @@ function Salary() {
     }
 
     const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
-        setCoachData({ ...coachData, [prop]: parseFloat(event.target.value) });
+        let val = parseFloat(event.target.value);
+
+        setCoachData({ ...coachData, [prop]: val });
     };
 
     const doPredSal = () => {
         const allData = { ...coachData, ...confSelect };
+
+        if (allData['head_coaches - wl_pct'] > 1.0) {
+            allData['head_coaches - wl_pct'] = allData['head_coaches - wl_pct'] / 100;
+        }
 
         fetch('/salary', {
             method: 'POST',

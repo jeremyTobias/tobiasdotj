@@ -1,10 +1,9 @@
-from flask import Flask, jsonify, render_template, send_from_directory, request, make_response
-from flask_sqlalchemy import SQLAlchemy
-from dotenv import load_dotenv
+import os
 
 import pandas as pd
-import os
-import json
+from dotenv import load_dotenv
+from flask import Flask, jsonify, send_from_directory, request
+from flask_sqlalchemy import SQLAlchemy
 
 load_dotenv()
 
@@ -19,6 +18,7 @@ from .models.zillow.ztimeseries import ZForecast
 from .models.zillow.zmodels import ZModels
 from .models.salary.fballcoaches import Fball
 
+
 @app.route('/zillow', methods=['GET'])
 def zillow():
     allData = Housing.query.all()
@@ -26,6 +26,7 @@ def zillow():
     return jsonify({
         'data': [res.serialized for res in allData]
     })
+
 
 @app.route('/zillow/forecast/<zipcode>', methods=['GET'])
 def zforecast(zipcode):
@@ -38,6 +39,7 @@ def zforecast(zipcode):
     return jsonify({
         'data': fcast.to_json(orient='table')
     })
+
 
 @app.route('/salary', methods=['GET', 'POST'])
 def salary():
@@ -54,6 +56,7 @@ def salary():
 
     return jsonify({'data': data})
 
+
 '''
 @app.route('/rideshare', methods=['GET'])
 def rideshare():
@@ -62,7 +65,12 @@ def rideshare():
     })
 '''
 
+
 @app.route('/')
+@app.route('/projects')
+@app.route('/about')
+@app.route('/contact')
+@app.route('/blog')
 def serve():
     return send_from_directory(app.static_folder, 'index.html')
 
