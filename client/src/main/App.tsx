@@ -25,11 +25,10 @@ const useStyles = makeStyles((theme) => ({
         flexDirection: 'column',
         minHeight: '100vh',
         backgroundColor: theme.palette.grey[500],
-        color: 'whitesmoke'
     },
     header: {
-        padding: theme.spacing(10),
-        margin: theme.spacing(6)
+        padding: theme.spacing(4),
+        margin: theme.spacing(2)
     },
     main: {
         paddingTop: theme.spacing(12),
@@ -61,11 +60,9 @@ function App() {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <header className={classes.header}>
-                <Container>
-                    <Nav title='TobiasDotJ' sections={sections}/>
-                </Container>
-            </header>
+            <Container component='header' className={classes.header}>
+                <Nav title='Tobias.J' sections={sections}/>
+            </Container>
             <Container component='main' className={classes.main}>
                 {routeResults||<h1>PAGE NOT FOUND</h1>}
             </Container>
