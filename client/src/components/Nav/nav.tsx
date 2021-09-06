@@ -1,10 +1,9 @@
 import React, {useEffect, useState} from 'react';
 // @ts-ignore
 import {A} from 'hookrouter';
-import {AppBar, Container, CssBaseline, Toolbar} from '@material-ui/core';
+import {AppBar, Container, CssBaseline, Fade, Toolbar, Slide} from '@material-ui/core';
 import {Typography} from '@material-ui/core';
 import {makeStyles} from '@material-ui/core/styles';
-import classNames from "classnames";
 
 const useStyles = makeStyles((theme) => ({
     root: {
@@ -81,7 +80,7 @@ function Nav(props: any) {
     useEffect(() => {
         const onScroll = () => {
             setShrunk((isShrunk) => {
-                if ( !isShrunk && (document.body.scrollTop > 20 || document.documentElement.scrollTop > 20)) {
+                if ( !isShrunk && (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50)) {
                     return true;
                 }
                 if (isShrunk && document.body.scrollTop < 4 && document.documentElement.scrollTop < 4) {
@@ -97,100 +96,100 @@ function Nav(props: any) {
 
     const displayNormHeader = () => {
         return (
-            <React.Fragment>
-                <Toolbar className={classes.toolbar}>
-                        <Typography
-                          component='h2'
-                          variant='h5'
-                          color='inherit'
-                          align='center'
-                          noWrap
-                          className={classes.toolbarTitle}
-                        >
-                            <A
-                                color='inherit'
-                                key={title}
-                                href='/'
-                                className={classes.titleLink}
+            <Slide in={!isShrunk} timeout={500} mountOnEnter unmountOnExit>
+                <AppBar className={classes.root}>
+                    <Toolbar className={classes.toolbar}>
+                            <Typography
+                              component='h2'
+                              variant='h5'
+                              color='inherit'
+                              align='center'
+                              noWrap
+                              className={classes.toolbarTitle}
                             >
-                                {title}
-                            </A>
-                        </Typography>
-                    </Toolbar>
+                                <A
+                                    color='inherit'
+                                    key={title}
+                                    href='/'
+                                    className={classes.titleLink}
+                                >
+                                    {title}
+                                </A>
+                            </Typography>
+                        </Toolbar>
+                        <Container>
+                            <Toolbar
+                                component='nav'
+                                variant='dense'
+                                className={classes.toolbarSecondary}
+                            >
+                                {sections.map((section: any) => (
+                                    <A
+                                        color='inherit'
+                                        key={section.title}
+                                        variant='body2'
+                                        href={section.url}
+                                        className={classes.toolbarLink}>
+                                            {section.title}
+                                    </A>
+                                ))}
+                            </Toolbar>
+                        </Container>
+                    </AppBar>
+                </Slide>
+        );
+    };
+
+    const displayShrunkHeader = () => {
+        return (
+            <Fade in={isShrunk} timeout={500} mountOnEnter unmountOnExit>
+                <AppBar className={classes.root}>
                     <Container>
                         <Toolbar
                             component='nav'
                             variant='dense'
-                            className={classes.toolbarSecondary}
+                            className={classes.sToolbar}
                         >
+                            <Typography
+                                component='h2'
+                                variant='h5'
+                                color='inherit'
+                                align='left'
+                                noWrap
+                                className={classes.sToolbarTitle}
+                            >
+                                <A
+                                    color='inherit'
+                                    key={title}
+                                    href='/'
+                                    className={classes.sTitleLink}
+                                >
+                                    {title}
+                                </A>
+                            </Typography>
                             {sections.map((section: any) => (
                                 <A
                                     color='inherit'
                                     key={section.title}
                                     variant='body2'
                                     href={section.url}
-                                    className={classes.toolbarLink}>
-                                        {section.title}
+                                    className={classes.sToolbarLink}
+                                >
+                                    {section.title}
                                 </A>
                             ))}
                         </Toolbar>
                     </Container>
-                </React.Fragment>
-        );
-    };
-
-    const displayShrunkHeader = () => {
-        return (
-            <React.Fragment>
-                <Container className={classes.sContainer}>
-                    <Toolbar
-                        component='nav'
-                        variant='dense'
-                        className={classes.sToolbar}
-                    >
-                        <Typography
-                            component='h2'
-                            variant='h5'
-                            color='inherit'
-                            align='left'
-                            noWrap
-                            className={classes.sToolbarTitle}
-                        >
-                            <A
-                                color='inherit'
-                                key={title}
-                                href='/'
-                                className={classes.sTitleLink}
-                            >
-                                {title}
-                            </A>
-                        </Typography>
-                        {sections.map((section: any) => (
-                            <A
-                                color='inherit'
-                                key={section.title}
-                                variant='body2'
-                                href={section.url}
-                                className={classes.sToolbarLink}
-                            >
-                                {section.title}
-                            </A>
-                        ))}
-                    </Toolbar>
-                </Container>
-            </React.Fragment>
+                </AppBar>
+            </Fade>
         );
     };
 
     return (
-        <header className={classNames(
-        { "border-gray-200 dark:border-gray-800 backdrop-blur": isShrunk }
-        )}>
+        <React.Fragment>
             <CssBaseline />
-            <AppBar className={classes.root}>
-                {isShrunk ? displayShrunkHeader() : displayNormHeader()}
-            </AppBar>
-        </header>
+            {isShrunk ? displayShrunkHeader() : displayNormHeader()}
+        </React.Fragment>
     );
 }
 

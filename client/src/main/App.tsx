@@ -26,13 +26,9 @@ const useStyles = makeStyles((theme) => ({
         minHeight: '100vh',
         backgroundColor: theme.palette.grey[500],
     },
-    header: {
-        padding: theme.spacing(4),
-        margin: theme.spacing(2)
-    },
     main: {
         paddingTop: theme.spacing(12),
-        marginTop: theme.spacing(12),
+        marginTop: theme.spacing(20),
         marginBottom: theme.spacing(2),
     },
     footer: {
@@ -60,9 +56,7 @@ function App() {
     return (
         <div className={classes.root}>
             <CssBaseline />
-            <Container component='header' className={classes.header}>
-                <Nav title='Tobias.J' sections={sections}/>
-            </Container>
+            <Nav title='Tobias.J' sections={sections} />
             <Container component='main' className={classes.main}>
                 {routeResults||<h1>PAGE NOT FOUND</h1>}
             </Container>
