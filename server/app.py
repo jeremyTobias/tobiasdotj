@@ -68,6 +68,7 @@ def rideshare():
 
 @app.route('/')
 @app.route('/projects')
+@app.route('/project')
 @app.route('/about')
 @app.route('/contact')
 @app.route('/blog')

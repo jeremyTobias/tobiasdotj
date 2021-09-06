@@ -23,7 +23,7 @@ const useStyles = makeStyles((theme) => ({
         backdropFilter: 'blur(5px)',
     },
     toolbar: {
-        backgroundImage: `url(imgs/hale_sunset.jpg)`,
+        backgroundImage: `url('./imgs/hale_sunset.jpg')`,
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: 'cover',
@@ -46,6 +46,9 @@ const useStyles = makeStyles((theme) => ({
         color: 'darkgray',
         textShadow: '2px 2px 5px #000000',
         flexShrink: 0,
+        '&:hover': {
+            color: 'black',
+        },
     },
     titleLink: {
         padding: theme.spacing(2),
@@ -54,6 +57,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '72px',
         textShadow: '2px 2px 5px #000000',
         flexShrink: 0,
+        '&:hover': {
+            color: 'black',
+        },
     },
     sToolbar: {
         justifyContent: 'space-between',
@@ -68,6 +74,9 @@ const useStyles = makeStyles((theme) => ({
         fontSize: '24px',
         textShadow: '2px 2px 5px #000000',
         flexShrink: 0,
+        '&:hover': {
+            color: 'black',
+        },
     },
     drawer: {
         flexShrink: 0,
