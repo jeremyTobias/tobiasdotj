@@ -28,12 +28,12 @@ const useStyles = makeStyles((theme) => ({
         color: 'whitesmoke'
     },
     header: {
-        padding: theme.spacing(12),
-        margin: 'auto',
+        padding: theme.spacing(10),
+        margin: theme.spacing(6)
     },
     main: {
-        paddingTop: theme.spacing(8),
-        marginTop: theme.spacing(8),
+        paddingTop: theme.spacing(12),
+        marginTop: theme.spacing(12),
         marginBottom: theme.spacing(2),
     },
     footer: {
@@ -66,11 +66,9 @@ function App() {
                     <Nav title='TobiasDotJ' sections={sections}/>
                 </Container>
             </header>
-            <div>
             <Container component='main' className={classes.main}>
                 {routeResults||<h1>PAGE NOT FOUND</h1>}
             </Container>
-            </div>
             <footer className={classes.footer}>
                 <Container maxWidth='sm'>
                     <Footer />

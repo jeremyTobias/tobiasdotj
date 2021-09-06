@@ -9,7 +9,7 @@ import Link from "@material-ui/core/Link";
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'fixed',
-        //color: 'darkslategray',
+        color: 'darkslategray',
         backgroundColor: theme.palette.grey[700],
     },
     toolbar: {
@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat',
         backgroundSize: '100% 100%',
-        backgroundColor: theme.palette.grey[700],
+        backgroundColor: theme.palette.grey[500],
         backgroundBlendMode: 'screen',
         width: '100%',
         minHeight: '40vh',
@@ -33,9 +33,18 @@ const useStyles = makeStyles((theme) => ({
     toolbarLink: {
         padding: theme.spacing(2),
         textDecoration: 'none',
-        color: 'whitesmoke',
+        color: 'darkgray',
+        textShadow: '2px 2px 5px #000000',
         flexShrink: 0,
     },
+    titleLink: {
+        padding: theme.spacing(2),
+        textDecoration: 'none',
+        color: 'darkgray',
+        fontSize: '72px',
+        textShadow: '2px 2px 5px #000000',
+        flexShrink: 0,
+    }
 }));
 
 function Nav(props: any) {
@@ -47,25 +56,29 @@ function Nav(props: any) {
             <AppBar className={classes.root}>
                 <Toolbar className={classes.toolbar}>
                     <Typography
-                      component="h2"
-                      variant="h5"
-                      color="inherit"
-                      align="center"
+                      component='h2'
+                      variant='h5'
+                      color='inherit'
+                      align='center'
                       noWrap
                       className={classes.toolbarTitle}
                     >
-                        <Link
+                        <A
                             color='inherit'
                             noWrap
                             key={title}
                             href='/'
-                            className={classes.toolbarLink}
+                            className={classes.titleLink}
                         >
                             {title}
-                        </Link>
+                        </A>
                     </Typography>
                 </Toolbar>
-                <Toolbar component='nav' variant='dense' className={classes.toolbarSecondary}>
+                <Toolbar
+                    component='nav'
+                    variant='dense'
+                    className={classes.toolbarSecondary}
+                >
                     {sections.map((section: any) => (
                         <A
                             color='inherit'
