@@ -9,7 +9,7 @@ import {
     Button,
     Checkbox,
     FormControlLabel,
-    TextField
+    TextField, Container
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import {DataGrid, GridColDef} from "@material-ui/data-grid";
@@ -55,41 +55,28 @@ const columns: GridColDef[] = [
     {
         field: 'conference',
         headerName: 'Conference',
-        width: 135,
+        headerAlign: 'center',
+        width: 155,
     },
     {
         field: 'wins',
         headerName: 'Wins (%)',
-        width: 115,
+        headerAlign: 'center',
+        width: 135,
     },
     {
         field: 'attendance',
-        headerName: 'Avg. Attendance',
-        width: 175,
+        headerName: 'Home Attendance (avg.)',
+        headerAlign: 'center',
+        width: 240,
     },
     {
         field: 'salary',
         headerName: 'Salary ($USD)',
+        headerAlign: 'center',
         width: 175,
     },
 ];
-
-/*interface State {
-    'const': number,
-    'Bonus': number,
-    'BonusPaid': number,
-    'Buyout': number,
-    'head_coaches - seasons_coached': number,
-    'head_coaches - wl_pct': number,
-    'head_coaches - tournament_wl_pct': number,
-    'AvgAttendance': number,
-    'StadiumCapacity': number,
-    'PctCapacity': number,
-    'MULTIYR_ELIG_RATE': number,
-    'MULTIYR_RET_RATE': number,
-    'gsr': number,
-    'fgr': number,
-}*/
 
 interface State {
     'const': number,
@@ -102,22 +89,6 @@ function Salary() {
     const [isChecked, setIsChecked] = useState(false);
     const [prevData, setPrevData] = useState([]);
     const [predSal, setPredSal] = useState('');
-    /*const [coachData, setCoachData] = useState<State>({
-        'const': 1,
-        'Bonus': 725093.5116,
-        'BonusPaid': 102001.0698,
-        'Buyout': 2160417,
-        'head_coaches - seasons_coached': 6,
-        'head_coaches - wl_pct': 55.3,
-        'head_coaches - tournament_wl_pct': 0,
-        'AvgAttendance': 41696,
-        'StadiumCapacity': 68400,
-        'PctCapacity': 60.96,
-        'MULTIYR_ELIG_RATE': 0.9658385093,
-        'MULTIYR_RET_RATE': 0.937007874,
-        'gsr': 86,
-        'fgr': 56,
-    });*/
     const [coachData, setCoachData] = useState<State>({
         'const': 1,
         'head_coaches - wl_pct': 55.3,
@@ -230,7 +201,22 @@ function Salary() {
 
     return (
       <React.Fragment>
-          <div>
+          <Container>
+              <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                  <Autocomplete
+                      id='outlined-conf-select'
+                      options={Object.values(conferences)}
+                      value={conference}
+                      onInputChange={handleConferenceSelect}
+                      renderInput={(params) => (
+                          <TextField
+                              {...params}
+                              variant={'outlined'}
+                          />
+                      )}
+                  />
+                  <FormHelperText id='outlined-conf-helper-text'>Conference</FormHelperText>
+              </FormControl>
               <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
                   <OutlinedInput
                   id="outlined-adornment-weight"
@@ -255,21 +241,8 @@ function Salary() {
                   />
                   <FormHelperText id="outlined-avgattendnace-helper-text">Avg Home Game Attendance</FormHelperText>
               </FormControl>
-              <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                  <Autocomplete
-                      id='outlined-conf-select'
-                      options={Object.values(conferences)}
-                      value={conference}
-                      onInputChange={handleConferenceSelect}
-                      renderInput={(params) => (
-                          <TextField
-                              {...params}
-                              variant={'outlined'}
-                          />
-                      )}
-                  />
-                  <FormHelperText id='outlined-conf-helper-text'>Conference</FormHelperText>
-              </FormControl>
+          </Container>
+          <Container>
               <Button
                   onClick={doPredSal}
                   disabled={(isNaN(coachData['head_coaches - wl_pct']) ||
@@ -280,17 +253,17 @@ function Salary() {
               >
                   Predict Salary
               </Button>
-              <FormControl>
+              <FormControl className={clsx(classes.margin, classes.textField)}>
                   <FormControlLabel control={<Checkbox onChange={saveData} checked={isChecked}/>}
                                     label='Save Prediction' />
               </FormControl>
-
-          </div>
+          </Container>
           {predSal !== '' &&
-            <div>
+            <Container>
                 <p>Predicted Salary: {predSal}</p>
                 {(isChecked && prevData.length > 0) &&
                     <div>
+                        <p><strong>Previous Data:</strong></p>
                         <DataGrid
                             className={classes.dataTable}
                             rows={prevData}
@@ -303,7 +276,7 @@ function Salary() {
                         >Clear Table</Button>
                     </div>
                 }
-            </div>
+            </Container>
           }
       </React.Fragment>
     );

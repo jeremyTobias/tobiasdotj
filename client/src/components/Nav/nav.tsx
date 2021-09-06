@@ -103,7 +103,7 @@ function Nav(props: any) {
                 if ( !isShrunk && (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50)) {
                     return true;
                 }
-                if (isShrunk && document.body.scrollTop < 20 && document.documentElement.scrollTop < 20) {
+                if (isShrunk && document.body.scrollTop < 45 && document.documentElement.scrollTop < 45) {
                     return false;
                 }
                 return isShrunk;
