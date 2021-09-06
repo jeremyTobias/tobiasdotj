@@ -190,7 +190,13 @@ class ZTimeSeries extends React.Component<Props, State> {
                             />
                         </Grid>
                         <Grid item sm={8}>
-                            <Button variant='contained' onClick={this.doForecast}>Forecast</Button>
+                            <Button
+                                variant='contained'
+                                onClick={this.doForecast}
+                                disabled={this.state.zipcode === '' || isNaN(this.state.zipcode) || this.state.zipcode === null}
+                            >
+                                Forecast
+                            </Button>
                         </Grid>
                     </Grid>
                 </Container>

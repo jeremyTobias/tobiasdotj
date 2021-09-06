@@ -5,30 +5,76 @@ import {
     FormControl,
     FormHelperText,
     OutlinedInput,
-    InputAdornment, Button, Checkbox, FormControlLabel, TextField
+    InputAdornment,
+    Button,
+    Checkbox,
+    FormControlLabel,
+    TextField
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
-import {stringify} from "querystring";
+import {DataGrid, GridColDef} from "@material-ui/data-grid";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-    root: {
-      display: 'flex',
-      flexWrap: 'wrap',
-    },
-    margin: {
-      margin: theme.spacing(1),
-    },
-    withoutLabel: {
-      marginTop: theme.spacing(3),
-    },
-    textField: {
-      width: '25ch',
-    },
+       root: {
+          display: 'flex',
+          flexWrap: 'wrap',
+          flexGrow: 1,
+          color: 'whitesmoke',
+          justifyContent: 'center',
+          backgroundColor:
+              theme.palette.grey[100]
+       },
+      paper: {
+          padding: theme.spacing(2),
+          textAlign: 'center',
+          color: theme.palette.text.secondary,
+      },
+      margin: {
+          margin: theme.spacing(1),
+      },
+      withoutLabel: {
+          marginTop: theme.spacing(3),
+      },
+      textField: {
+          width: '25ch',
+      },
+      dataTable: {
+          margin: theme.spacing(1),
+          padding: theme.spacing(2),
+          textAlign: 'center',
+          color: theme.palette.text.secondary,
+          height: 425,
+          backgroundColor: theme.palette.grey[200]
+      }
   }),
 );
 
-interface State {
+const columns: GridColDef[] = [
+    { field: 'id', headerName: 'ID', width: 95 },
+    {
+        field: 'conference',
+        headerName: 'Conference',
+        width: 135,
+    },
+    {
+        field: 'wins',
+        headerName: 'Wins (%)',
+        width: 115,
+    },
+    {
+        field: 'attendance',
+        headerName: 'Avg. Attendance',
+        width: 175,
+    },
+    {
+        field: 'salary',
+        headerName: 'Salary ($USD)',
+        width: 175,
+    },
+];
+
+/*interface State {
     'const': number,
     'Bonus': number,
     'BonusPaid': number,
@@ -43,31 +89,20 @@ interface State {
     'MULTIYR_RET_RATE': number,
     'gsr': number,
     'fgr': number,
-}
-
-/*'Conference_Atlantic_Coast_Conference' : number,
-    'Conference_Big_12_Conference' : number,
-    'Conference_Big_Ten_Conference' : number,
-    'Conference_Conference_USA' : number,
-    'Conference_Independent' : number,
-    'Conference_Mid - American_Conference' : number,
-    'Conference_Mountain_West_Conference' : number,
-    'Conference_Pac - 12_Conference' : number,
-    'Conference_Southeastern_Conference' : number,
-    'Conference_Sun_Belt_Conference' : number,
 }*/
+
+interface State {
+    'const': number,
+    'head_coaches - wl_pct': number,
+    'AvgAttendance': number,
+}
 
 function Salary() {
     const classes = useStyles();
     const [isChecked, setIsChecked] = useState(false);
-    const [prevData, setPrevData] = useState({
-        prevSal: '0',
-        prevWin: 0,
-        prevAvgAttendance: 0,
-        prevConf: '',
-    });
+    const [prevData, setPrevData] = useState([]);
     const [predSal, setPredSal] = useState('');
-    const [coachData, setCoachData] = useState<State>({
+    /*const [coachData, setCoachData] = useState<State>({
         'const': 1,
         'Bonus': 725093.5116,
         'BonusPaid': 102001.0698,
@@ -82,6 +117,11 @@ function Salary() {
         'MULTIYR_RET_RATE': 0.937007874,
         'gsr': 86,
         'fgr': 56,
+    });*/
+    const [coachData, setCoachData] = useState<State>({
+        'const': 1,
+        'head_coaches - wl_pct': 55.3,
+        'AvgAttendance': 41696,
     });
 
     let confData: any = {
@@ -106,7 +146,7 @@ function Salary() {
         'Conference_Conference_USA' : 'USA',
         'Conference_Independent' : 'Independent',
         'Conference_Mid - American_Conference' : 'MAC',
-        'Conference_Mountain_West_Conference' : 'MWC',
+        'Conference_Mountain_West_Conference' : 'Midwest',
         'Conference_Pac - 12_Conference' : 'Pac-12',
         'Conference_Southeastern_Conference' : 'SEC',
         'Conference_Sun_Belt_Conference' : 'Sun Belt',
@@ -132,25 +172,11 @@ function Salary() {
         setConfSelect(confData);
     };
 
-    const prevConf: any = () => {
-        for (const k in confData) {
-            if (confData[k].toString() === '1') {
-                for (const j in conferences) {
-                    if (k === j) {
-                        return conferences[j]
-                    }
-                }
-            }
-        }
-    }
-
-    const savePrev: any = () => {
-        setPrevData({
-            prevSal: predSal,
-            prevWin: coachData['head_coaches - wl_pct'],
-            prevAvgAttendance: coachData.AvgAttendance,
-            prevConf: conference
-        });
+    const savePrev = (data: any) => {
+        let tempData: any = [];
+        tempData.push.apply(tempData, prevData);
+        tempData.push(data);
+        setPrevData(tempData);
     }
 
     const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -186,11 +212,21 @@ function Salary() {
                     );
                 }) || 'Nothing to show';
 
-                setPredSal(curData);
+                if (isChecked) {
+                    savePrev({
+                        id: prevData.length + 1,
+                        salary: curData[0],
+                        wins: allData['head_coaches - wl_pct'] * 100,
+                        attendance: allData['AvgAttendance'],
+                        conference: conference
+                    });
+                }
 
-                savePrev();
+                setPredSal(curData[0]);
             });
     };
+
+    const clearPreds = () => {setPrevData([])}
 
     return (
       <React.Fragment>
@@ -234,19 +270,37 @@ function Salary() {
                   />
                   <FormHelperText id='outlined-conf-helper-text'>Conference</FormHelperText>
               </FormControl>
-              <Button onClick={doPredSal}>Click Me</Button>
+              <Button
+                  onClick={doPredSal}
+                  disabled={(isNaN(coachData['head_coaches - wl_pct']) ||
+                      isNaN(coachData['AvgAttendance']) ||
+                          conference === ''
+                  )}
+                  variant='contained'
+              >
+                  Predict Salary
+              </Button>
               <FormControl>
                   <FormControlLabel control={<Checkbox onChange={saveData} checked={isChecked}/>}
-                                    label='Save Previous Prediction' />
+                                    label='Save Prediction' />
               </FormControl>
 
           </div>
           {predSal !== '' &&
             <div>
                 <p>Predicted Salary: {predSal}</p>
-                {(isChecked && prevData.prevSal !== '') &&
+                {(isChecked && prevData.length > 0) &&
                     <div>
-                        <p>Previous Salary: {prevData.prevSal}</p>
+                        <DataGrid
+                            className={classes.dataTable}
+                            rows={prevData}
+                            columns={columns}
+                            pageSize={5}
+                            disableSelectionOnClick
+                        />
+                        <Button
+                            onClick={clearPreds}
+                        >Clear Table</Button>
                     </div>
                 }
             </div>

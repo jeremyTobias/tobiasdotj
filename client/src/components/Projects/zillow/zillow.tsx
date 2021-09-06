@@ -86,8 +86,6 @@ const columns: GridColDef[] = [
 
 function Zillow() {
     const [projectData, setProjectData] = useState();
-    let curData: any;
-
     const classes = useStyles();
 
     useEffect(() => {
@@ -95,7 +93,7 @@ function Zillow() {
             .then((res) => res.json())
             .then((data: any) => {
                 let count = 0;
-                curData = data.data.map((d: any) => {
+                let curData = data.data.map((d: any) => {
                     return({
                         id: count++,
                         zip: d.zip,
@@ -136,7 +134,7 @@ function Zillow() {
                 // @ts-ignore
                 setProjectData(dat);
             });
-    }, []);
+    }, [classes.dataTable, classes.paper, classes.root]);
 
     return (
         <React.Fragment>{projectData}</React.Fragment>

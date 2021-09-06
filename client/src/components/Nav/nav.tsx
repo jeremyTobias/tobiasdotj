@@ -9,10 +9,18 @@ import Link from "@material-ui/core/Link";
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'fixed',
-        color: 'whitesmoke',
+        //color: 'darkslategray',
         backgroundColor: theme.palette.grey[700],
     },
     toolbar: {
+        backgroundImage: `url(imgs/hale_sunset.jpg)`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: '100% 100%',
+        backgroundColor: theme.palette.grey[700],
+        backgroundBlendMode: 'screen',
+        width: '100%',
+        minHeight: '40vh',
         borderBottom: `1px solid ${theme.palette.divider}`,
     },
     toolbarTitle: {
