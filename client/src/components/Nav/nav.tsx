@@ -5,9 +5,7 @@ import {
     AppBar,
     Container,
     CssBaseline,
-    Fade,
     Toolbar,
-    Slide,
     IconButton,
     Drawer,
 } from '@material-ui/core';
@@ -18,19 +16,10 @@ import {makeStyles} from '@material-ui/core/styles';
 const useStyles = makeStyles((theme) => ({
     root: {
         position: 'fixed',
-        backgroundColor: theme.palette.grey[700],
-        opacity: '80%',
+        backgroundColor: '#494E6B',
         backdropFilter: 'blur(5px)',
     },
     toolbar: {
-        backgroundImage: `url('./imgs/hale_sunset.jpg')`,
-        backgroundPosition: 'center',
-        backgroundRepeat: 'no-repeat',
-        backgroundSize: 'cover',
-        backgroundColor: theme.palette.grey[700],
-        backgroundBlendMode: 'screen',
-        width: '100%',
-        minHeight: '20vh',
         borderBottom: `1px solid ${theme.palette.divider}`,
     },
     toolbarTitle: {
@@ -43,53 +32,41 @@ const useStyles = makeStyles((theme) => ({
     toolbarLink: {
         padding: theme.spacing(2),
         textDecoration: 'none',
-        color: 'darkgray',
+        color: 'whitesmoke',
         textShadow: '2px 2px 5px #000000',
         flexShrink: 0,
         '&:hover': {
-            color: 'black',
+            color: '#98878F',
         },
     },
     titleLink: {
         padding: theme.spacing(2),
         textDecoration: 'none',
-        color: 'darkgray',
-        fontSize: '72px',
+        color: '#98878F',
+        fontSize: '36px',
         textShadow: '2px 2px 5px #000000',
         flexShrink: 0,
         '&:hover': {
-            color: 'black',
+            color: 'whitesmoke',
         },
     },
     sToolbar: {
         justifyContent: 'space-between',
         overflowX: 'auto',
-        opacity: '80%',
+        opacity: '50%',
         backdropFilter: 'blur(5px)',
-    },
-    sTitleLink: {
-        padding: theme.spacing(2),
-        textDecoration: 'none',
-        color: 'darkgray',
-        fontSize: '24px',
-        textShadow: '2px 2px 5px #000000',
-        flexShrink: 0,
-        '&:hover': {
-            color: 'black',
-        },
     },
     drawer: {
         flexShrink: 0,
     },
     paper: {
-        backgroundColor: theme.palette.grey[700],
+        backgroundColor: '#494E6B',
     }
 }));
 
 function Nav(props: any) {
     const classes = useStyles();
     const {sections, title} = props;
-    const [isShrunk, setShrunk] = useState(false);
     const [isSkinny, setSkinny] = useState({
         mobileView: false,
         drawerOpen: false,
@@ -98,18 +75,6 @@ function Nav(props: any) {
     const {mobileView, drawerOpen} = isSkinny;
 
     useEffect(() => {
-        const onScroll = () => {
-            setShrunk((isShrunk) => {
-                if ( !isShrunk && (document.body.scrollTop > 50 || document.documentElement.scrollTop > 50)) {
-                    return true;
-                }
-                if (isShrunk && document.body.scrollTop < 45 && document.documentElement.scrollTop < 45) {
-                    return false;
-                }
-                return isShrunk;
-            });
-        };
-
         const setResponsiveness = () => {
           return window.innerWidth < 900
             ? setSkinny((prevState) => ({ ...prevState, mobileView: true }))
@@ -119,24 +84,26 @@ function Nav(props: any) {
         setResponsiveness();
 
         window.addEventListener("resize", setResponsiveness);
-        window.addEventListener('scroll', onScroll);
 
         return () => {
-            window.removeEventListener('scroll', onScroll);
             window.removeEventListener("resize", setResponsiveness);
         }
     }, []);
 
-    const displayNormHeader = () => {
+    const displayDesktop = () => {
         return (
-            <Slide in={!isShrunk} timeout={500} mountOnEnter unmountOnExit>
-                <AppBar className={classes.root}>
-                    <Toolbar className={classes.toolbar}>
+            <React.Fragment>
+                <Container>
+                    <Toolbar
+                        component='nav'
+                        variant='dense'
+                        className={classes.toolbarSecondary}
+                    >
                         <Typography
                             component='h2'
                             variant='h5'
                             color='inherit'
-                            align='center'
+                            align='left'
                             noWrap
                             className={classes.toolbarTitle}
                         >
@@ -149,72 +116,19 @@ function Nav(props: any) {
                                 {title}
                             </A>
                         </Typography>
-                    </Toolbar>
-                    <Container>
-                        <Toolbar
-                            component='nav'
-                            variant='dense'
-                            className={classes.toolbarSecondary}
-                        >
-                            {sections.map((section: any) => (
-                                <A
-                                    color='inherit'
-                                    key={section.title}
-                                    variant='body2'
-                                    href={section.url}
-                                    className={classes.toolbarLink}>
-                                    {section.title}
-                                </A>
-                            ))}
-                        </Toolbar>
-                    </Container>
-                </AppBar>
-            </Slide>
-        );
-    };
-
-    const displayShrunkHeader = () => {
-        return (
-            <AppBar className={classes.root}>
-                <Fade in={isShrunk} timeout={500} mountOnEnter unmountOnExit>
-                    <Container>
-                        <Toolbar
-                            component='nav'
-                            variant='dense'
-                            className={classes.sToolbar}
-                        >
-                            <Typography
-                                component='h2'
-                                variant='h5'
+                        {sections.map((section: any) => (
+                            <A
                                 color='inherit'
-                                align='left'
-                                noWrap
-                                className={classes.toolbarTitle}
-                            >
-                                <A
-                                    color='inherit'
-                                    key={title}
-                                    href='/'
-                                    className={classes.sTitleLink}
-                                >
-                                    {title}
-                                </A>
-                            </Typography>
-                            {sections.map((section: any) => (
-                                <A
-                                    color='inherit'
-                                    key={section.title}
-                                    variant='body2'
-                                    href={section.url}
-                                    className={classes.toolbarLink}
-                                >
-                                    {section.title}
-                                </A>
-                            ))}
-                        </Toolbar>
-                    </Container>
-                </Fade>
-            </AppBar>
+                                key={section.title}
+                                variant='body2'
+                                href={section.url}
+                                className={classes.toolbarLink}>
+                                {section.title}
+                            </A>
+                        ))}
+                    </Toolbar>
+                </Container>
+            </React.Fragment>
         );
     };
 
@@ -225,8 +139,25 @@ function Nav(props: any) {
             setSkinny((prevState) => ({ ...prevState, drawerOpen: false }));
 
         return (
-            <AppBar className={classes.root}>
+            <React.Fragment>
                 <Toolbar className={classes.sToolbar}>
+                    <Typography
+                        component='h2'
+                        variant='h5'
+                        color='inherit'
+                        align='left'
+                        noWrap
+                        className={classes.toolbarTitle}
+                    >
+                        <A
+                            color='inherit'
+                            key={title}
+                            href='/'
+                            className={classes.titleLink}
+                        >
+                            {title}
+                        </A>
+                    </Typography>
                     <IconButton
                       {...{
                         edge: 'start',
@@ -239,7 +170,7 @@ function Nav(props: any) {
                     <MenuIcon />
                     </IconButton>
                     <Drawer
-                        anchor='left'
+                        anchor='right'
                         open={drawerOpen}
                         onClose={handleDrawerClose}
                         className={classes.drawer}
@@ -257,32 +188,17 @@ function Nav(props: any) {
                             </A>
                         ))}
                     </Drawer>
-                    <Typography
-                        component='h2'
-                        variant='h5'
-                        color='inherit'
-                        align='left'
-                        noWrap
-                        className={classes.toolbarTitle}
-                    >
-                        <A
-                            color='inherit'
-                            key={title}
-                            href='/'
-                            className={classes.sTitleLink}
-                        >
-                            {title}
-                        </A>
-                    </Typography>
                 </Toolbar>
-            </AppBar>
+            </React.Fragment>
         );
     };
 
     return (
         <React.Fragment>
             <CssBaseline />
-            {mobileView ? displayMobile() : isShrunk ? displayShrunkHeader() : displayNormHeader()}
+            <AppBar className={classes.root}>
+                {mobileView ? displayMobile() : displayDesktop()}
+            </AppBar>
         </React.Fragment>
     );
 }

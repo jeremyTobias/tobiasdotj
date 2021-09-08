@@ -19,6 +19,8 @@ const useStyles = makeStyles((theme: Theme) =>
       card: {
           margin: theme.spacing(1),
           padding: theme.spacing(1),
+          backgroundColor: '#98878F',
+          color: 'whitesmoke',
           display: 'inline-block',
           height: 250,
           width: 345,
@@ -73,7 +75,7 @@ function Projects() {
                               <Typography gutterBottom variant='h5' component='h2'>
                                   {project.header}
                               </Typography>
-                              <Typography variant='body2' color='textSecondary' component='p'>
+                              <Typography variant='body2' component='p'>
                                   {project.text}
                               </Typography>
                           </CardContent>

@@ -16,16 +16,13 @@ const useStyles = makeStyles((theme: Theme) =>
           padding: theme.spacing(1),
           justifyContent: 'center',
           textAlign: 'center',
-          color: theme.palette.text.secondary,
-          backgroundColor: theme.palette.grey[200]
       },
       dataTable: {
           margin: theme.spacing(1),
           padding: theme.spacing(2),
           textAlign: 'center',
-          color: theme.palette.text.secondary,
           height: 425,
-          backgroundColor: theme.palette.grey[200]
+          backgroundColor: theme.palette.grey[500]
       }
   }),
 );

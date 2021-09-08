@@ -28,7 +28,6 @@ const useStyles = makeStyles((theme: Theme) =>
       paper: {
           padding: theme.spacing(2),
           textAlign: 'center',
-          color: theme.palette.text.secondary,
       },
       margin: {
           margin: theme.spacing(1),
@@ -78,7 +77,7 @@ const columns: GridColDef[] = [
     },
 ];
 
-interface State {
+interface Coach {
     'const': number,
     'head_coaches - wl_pct': number,
     'AvgAttendance': number,
@@ -89,7 +88,7 @@ function Salary() {
     const [isChecked, setIsChecked] = useState(false);
     const [prevData, setPrevData] = useState([]);
     const [predSal, setPredSal] = useState('');
-    const [coachData, setCoachData] = useState<State>({
+    const [coachData, setCoachData] = useState<Coach>({
         'const': 1,
         'head_coaches - wl_pct': 55.3,
         'AvgAttendance': 41696,
@@ -150,7 +149,7 @@ function Salary() {
         setPrevData(tempData);
     }
 
-    const handleChange = (prop: keyof State) => (event: React.ChangeEvent<HTMLInputElement>) => {
+    const handleChange = (prop: keyof Coach) => (event: React.ChangeEvent<HTMLInputElement>) => {
         let val = parseFloat(event.target.value);
 
         setCoachData({ ...coachData, [prop]: val });
@@ -236,7 +235,7 @@ function Salary() {
                   onChange={handleChange('AvgAttendance')}
                   endAdornment={<InputAdornment position="end">avg.</InputAdornment>}
                   aria-describedby="outlined-avgattendance-helper-text"
-                  inputProps={{'aria-label': 'Average Attendance',
+                  inputProps={{'aria-label': 'Average Attendance'
                   }}
                   />
                   <FormHelperText id="outlined-avgattendnace-helper-text">Avg Home Game Attendance</FormHelperText>

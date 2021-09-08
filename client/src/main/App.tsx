@@ -1,7 +1,7 @@
 import React from 'react';
 // @ts-ignore
 import { useRoutes } from 'hookrouter';
-import { CssBaseline, Container } from "@material-ui/core";
+import {CssBaseline, Container, Paper} from "@material-ui/core";
 import { makeStyles } from "@material-ui/core/styles";
 
 import Home from '../components/Home/home';
@@ -10,7 +10,7 @@ import Projects from '../components/Projects/projects';
 import Project from "../components/Projects/project";
 import Nav from '../components/Nav/nav';
 import Contact from '../components/Contact/contact';
-import Footer from "../components/Misc/Footer";
+import Footer from "../components/Misc/footer";
 
 const sections = [
     {title: 'Projects', url: '/projects'},
@@ -24,15 +24,26 @@ const useStyles = makeStyles((theme) => ({
         display: 'flex',
         flexDirection: 'column',
         minHeight: '100vh',
-        backgroundColor: theme.palette.grey[500],
+        color: 'whitesmoke',
+        backgroundImage: `url('./imgs/hale_sunset.jpg')`,
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat',
+        backgroundSize: 'cover',
+        backgroundColor: '#98878F',
+        backgroundBlendMode: 'screen',
     },
     main: {
-        paddingTop: theme.spacing(12),
-        marginTop: theme.spacing(20),
+        padding: theme.spacing(1),
+        marginTop: theme.spacing(8),
         marginBottom: theme.spacing(2),
+        backgroundColor: 'rgba(73, 78, 107, 0.5)',
+        color: 'whitesmoke',
+        backdropFilter: 'blur(5px)',
     },
     footer: {
-        padding: theme.spacing(3, 2),
+        backgroundColor: '#494E6B',
+        padding: theme.spacing(2),
+        width: '100%',
         marginTop: 'auto',
         marginLeft: 'auto',
         marginRight: 'auto',
@@ -57,8 +68,12 @@ function App() {
         <div className={classes.root}>
             <CssBaseline />
             <Nav title='Tobias.J' sections={sections} />
-            <Container component='main' className={classes.main}>
-                {routeResults||<h1>PAGE NOT FOUND</h1>}
+            <Container>
+                <Paper component='main' className={classes.main}>
+                    <Container>
+                        {routeResults||<h1>PAGE NOT FOUND</h1>}
+                    </Container>
+                </Paper>
             </Container>
             <footer className={classes.footer}>
                 <Container maxWidth='sm'>
