@@ -1,20 +1,21 @@
 import React from 'react';
 // @ts-ignore
 import { useRoutes } from 'hookrouter';
-import {CssBaseline, Container, Paper} from "@material-ui/core";
-import { makeStyles } from "@material-ui/core/styles";
+import {CssBaseline, Container, Paper} from '@material-ui/core';
+import { makeStyles } from '@material-ui/core/styles';
 
 import Home from '../components/Home/home';
 import About from '../components/About/about';
 import Projects from '../components/Projects/projects';
-import Project from "../components/Projects/project";
+import Project from '../components/Projects/project';
 import Nav from '../components/Nav/nav';
 import Contact from '../components/Contact/contact';
-import Footer from "../components/Misc/footer";
+import Footer from '../components/Misc/footer';
+import Blog from '../components/Blog/blog';
 
 const sections = [
     {title: 'Projects', url: '/projects'},
-    {title: 'Blog', url: '#'},
+    {title: 'Blog', url: '/blog'},
     {title: 'About', url: '/about'},
     {title: 'Contact', url: '/contact'}
 ]
@@ -57,6 +58,7 @@ function App() {
     const routes = {
         '/' :()=> <Home/>,
         '/about' :()=> <About/>,
+        '/blog' :()=> <Blog/>,
         '/projects' :()=> <Projects/>,
         '/project/:proj' :({proj}: any)=> <Project proj={proj} />,
         '/contact' :()=> <Contact/>
