@@ -107,6 +107,27 @@ function Zillow() {
 
                 const dat =
                     <div className={classes.root}>
+                        <p>
+                            <h3>Investor Profile:</h3>
+
+                                * Investor is interest in high growth in both dollar value and population <br/>
+                                * Believes areas with booming populations will drive up prices beyond forecasted growth <br/>
+                                * Moderate risk level. Prefers a small range relative to price
+                        </p>
+                        <p>
+                            While it has been shown that California has the highest percent growth in dollar value for
+                            given data, according to <a href='https://www.zipdatamaps.com/national/population/map-of-fastest-growing-zipcodes-in-the-united-states'>
+                            ZipDataMaps
+                            </a> , only one California zip code is present within the top
+                            ten fastest growing zip codes. Therefore, we will be taking in to consideration to top 50
+                            fastest growing zip codes, according to the <a href='https://www.zipdatamaps.com/national/population/map-of-fastest-growing-zipcodes-in-the-united-states'>
+                            ZipDataMaps
+                            </a> data.
+                        <br/><br/>
+                            In the below table, we see that of the top five zip codes Texas takes three of the spots.
+                            However, we need to combine this with our housing data to get a better idea of if these zip
+                            codes are right for our investor.
+                        </p>
                         <DataGrid
                                 className={classes.dataTable}
                                 rows={curData}
@@ -114,8 +135,16 @@ function Zillow() {
                                 pageSize={5}
                                 disableSelectionOnClick
                         />
-                        <Grid container spacing={2}>
+                        <Grid container spacing={6}>
                             <Grid item xs>
+                                <h3>Recommendations</h3>
+                                <p>
+                                    Based on the chart below and the investor profile we recommend the following zip codes for
+                                    investment: 95134, 80238, 20105. All three zip codes fall within the acceptable risk
+                                    levels of the profile and provide potential for high dollar gains. Additionally,
+                                    population growth across all three zip codes appears to be high, and it is assumed
+                                    that these levels will only increase.
+                                </p>
                                 <Paper className={classes.paper}>
                                     <ZChart chartData={curData}/>
                                 </Paper>
