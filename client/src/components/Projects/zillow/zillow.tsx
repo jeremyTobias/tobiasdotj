@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { DataGrid, GridColDef } from '@material-ui/data-grid';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Paper, Grid } from '@material-ui/core';
+import { Paper } from '@material-ui/core';
 
 import ZChart from './charts/quadchart';
 import ZTimeSeries from "./charts/timeseries";
@@ -108,6 +108,17 @@ function Zillow() {
                 const dat =
                     <div className={classes.root}>
                         <p>
+                            <h3>About this project</h3>
+                            A hypothetical scenario where we have an investor looking to invest in real estate across
+                            the U.S. We are tasked with determining the best location(s) for this investor based on their
+                            investor profile and information retrieved from the Zillow housing database and any additional
+                            data we deem relevant in order to build a useful investment model for this particular investor.
+                        </p>
+                        <p>
+                            <small style={{color: 'red'}}><strong>Disclaimer:</strong> This is a hypothetical scenario and not actual investment
+                            advice. Please consult a qualified real estate investor for actual investment advice.</small>
+                        </p>
+                        <p>
                             <h3>Investor Profile:</h3>
 
                                 * Investor is interest in high growth in both dollar value and population <br/>
@@ -135,26 +146,39 @@ function Zillow() {
                                 pageSize={5}
                                 disableSelectionOnClick
                         />
-                        <Grid container spacing={6}>
-                            <Grid item xs>
-                                <h3>Recommendations</h3>
-                                <p>
-                                    Based on the chart below and the investor profile we recommend the following zip codes for
-                                    investment: 95134, 80238, 20105. All three zip codes fall within the acceptable risk
-                                    levels of the profile and provide potential for high dollar gains. Additionally,
-                                    population growth across all three zip codes appears to be high, and it is assumed
-                                    that these levels will only increase.
-                                </p>
-                                <Paper className={classes.paper}>
-                                    <ZChart chartData={curData}/>
-                                </Paper>
-                            </Grid>
-                            <Grid item xs>
-                                <Paper className={classes.paper}>
-                                    <ZTimeSeries chartData={curData}/>
-                                </Paper>
-                            </Grid>
-                        </Grid>
+                        <h3>Recommendations</h3>
+                        <p>
+                            Based on the chart below and the investor profile we recommend the following zip codes for
+                            investment: 95134, 80238, 20105. All three zip codes fall within the acceptable risk
+                            levels of the profile and provide potential for high dollar gains. Additionally,
+                            population growth across all three zip codes appears to be high, and it is assumed
+                            that these levels will only increase.
+                        </p>
+
+                        <h3>Quad Chart breakdown:</h3>
+                        <p>
+                            <strong>Price Forecast(y):</strong> The 5yr price forecast starting from the last available
+                            data in 2020.
+                        </p>
+                        <p>
+                            <strong>U/L Price Deviation(x):</strong> A measure of the total price of the upper and lower
+                            predicted prices in relation to the mean price predicted for a given zipcode. The lower
+                            the percent deviation, the tighter the range of a given prediction. Thus, a lower risk
+                            to the investor in regards to potential profit gained when eventually selling a house
+                            in the zipcode of choice.
+                        </p>
+                        <p>
+                            The <strong>size</strong> of an observation is a representation of the current population
+                            growth data gathered from <a href='https://www.zipdatamaps.com/national/population/map-of-fastest-growing-zipcodes-in-the-united-states'>
+                            ZipDataMaps</a>, while the <strong>color</strong> of the observation represents the state
+                            that zipcode resides in.
+                        </p>
+                        <Paper className={classes.paper}>
+                            <ZChart chartData={curData}/>
+                        </Paper>
+                        <Paper className={classes.paper}>
+                            <ZTimeSeries chartData={curData}/>
+                        </Paper>
                     </div>
 
                 // @ts-ignore
