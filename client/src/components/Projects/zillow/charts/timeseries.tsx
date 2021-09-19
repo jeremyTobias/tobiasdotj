@@ -104,8 +104,8 @@ class ZTimeSeries extends React.Component<Props, State> {
                             }
                         ]}
                         layout={{
-                            //width: 450,
-                            //height: 550,
+                            width: 800,
+                            height: 550,
                             title: this.state.zipcode + ' Price Forecast',
                             hovermode: 'closest',
                             hoverlabel: { bgcolor: "#FFF" },
@@ -172,7 +172,7 @@ class ZTimeSeries extends React.Component<Props, State> {
             <div>
                 <Container className={classes.root}>
                     <Grid container spacing={2}>
-                        <Grid item sm={4}>
+                        <Grid item sm={2}>
                             <Autocomplete
                                 id='zipcode-select'
                                 freeSolo
@@ -189,7 +189,7 @@ class ZTimeSeries extends React.Component<Props, State> {
                                 )}
                             />
                         </Grid>
-                        <Grid item sm={8}>
+                        <Grid item sm={1}>
                             <Button
                                 variant='contained'
                                 onClick={this.doForecast}

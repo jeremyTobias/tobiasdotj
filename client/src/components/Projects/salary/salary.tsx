@@ -9,14 +9,15 @@ import {
     Button,
     Checkbox,
     FormControlLabel,
-    TextField, Container
+    TextField,
+    Paper
 } from "@material-ui/core";
 import Autocomplete from "@material-ui/lab/Autocomplete";
 import {DataGrid, GridColDef} from "@material-ui/data-grid";
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
-       root: {
+      root: {
           display: 'flex',
           flexWrap: 'wrap',
           flexGrow: 1,
@@ -24,9 +25,11 @@ const useStyles = makeStyles((theme: Theme) =>
           justifyContent: 'center',
           backgroundColor:
               theme.palette.grey[100]
-       },
+      },
       paper: {
-          padding: theme.spacing(2),
+          margin: theme.spacing(1),
+          padding: theme.spacing(1),
+          justifyContent: 'center',
           textAlign: 'center',
       },
       margin: {
@@ -200,83 +203,123 @@ function Salary() {
 
     return (
       <React.Fragment>
-          <Container>
-              <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                  <Autocomplete
-                      id='outlined-conf-select'
-                      options={Object.values(conferences)}
-                      value={conference}
-                      onInputChange={handleConferenceSelect}
-                      renderInput={(params) => (
-                          <TextField
-                              {...params}
-                              variant={'outlined'}
-                          />
-                      )}
-                  />
-                  <FormHelperText id='outlined-conf-helper-text'>Conference</FormHelperText>
-              </FormControl>
-              <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                  <OutlinedInput
-                  id="outlined-adornment-weight"
-                  defaultValue={coachData['head_coaches - wl_pct']}
-                  onChange={handleChange('head_coaches - wl_pct')}
-                  endAdornment={<InputAdornment position="end">%</InputAdornment>}
-                  aria-describedby="outlined-winperc-helper-text"
-                  inputProps={{'aria-label': 'Win Percentage',
-                  }}
-                  />
-                  <FormHelperText id="outlined-winperc-helper-text">Win/Loss Percentage</FormHelperText>
-              </FormControl>
-              <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
-                  <OutlinedInput
-                  id="outlined-adornment-avgattendance"
-                  defaultValue={coachData['AvgAttendance']}
-                  onChange={handleChange('AvgAttendance')}
-                  endAdornment={<InputAdornment position="end">avg.</InputAdornment>}
-                  aria-describedby="outlined-avgattendance-helper-text"
-                  inputProps={{'aria-label': 'Average Attendance'
-                  }}
-                  />
-                  <FormHelperText id="outlined-avgattendnace-helper-text">Avg Home Game Attendance</FormHelperText>
-              </FormControl>
-          </Container>
-          <Container>
-              <Button
-                  onClick={doPredSal}
-                  disabled={(isNaN(coachData['head_coaches - wl_pct']) ||
-                      isNaN(coachData['AvgAttendance']) ||
-                          conference === ''
-                  )}
-                  variant='contained'
-              >
-                  Predict Salary
-              </Button>
-              <FormControl className={clsx(classes.margin, classes.textField)}>
-                  <FormControlLabel control={<Checkbox onChange={saveData} checked={isChecked}/>}
-                                    label='Save Prediction' />
-              </FormControl>
-          </Container>
-          {predSal !== '' &&
-            <Container>
-                <p>Predicted Salary: {predSal}</p>
-                {(isChecked && prevData.length > 0) &&
+          <div>
+              <p>I don't care about your gibberish. Take me to the <a href='#salary_predictions_container'>salary predicting...</a></p>
+              <h3>About this project</h3>
+              <p>
+                  A hypothetical scenario where you are looking to hire a new coach and want to predict what that coach is worth.
+              </p>
+              <p>
+                  Looking at the salary by conference, I created a swarm to also represent a coaches win/loss
+                  percentage by color of the marker and average attendance by the size (normalized to fit well on the
+                  chart). The win/loss percentages are binned in to ten groups for ease of analyses and visualization.
+              </p>
+              <p>
+                  It can be seen that while there are some outliers, in general, coaches with a higher win/loss percentage are
+                  paid more in their respective conference. Looking at average game attendance, however, it is not completely
+                  obvious that average attendance plays a major part in a coach’s salary. Average attendance was chosen
+                  over stadium capacity due to being a slightly stronger metric, and the hypothesis that just because a
+                  stadium can hold a large amount of people, it does not necessarily translate to a large paying audience.
+                  Whereas average attendance may more likely contribute to such an outcome.
+              </p>
+              <p>
+                  It should be noted though that it can be observed that the highest paid coaches are in the largest winning
+                  percentage bracket and appear to have relatively high game attendance averages. One might also assume
+                  that high attendance is strongly correlated to a high win percentage. Which makes sense.
+              </p>
+              <Paper className={classes.paper} >
+                <img src='/imgs/coach_bw_plot.png' alt='Box and Whisker plot for coach data' />
+              </Paper>
+          </div>
+          <Paper className={classes.paper}>
+            <div id='salary_predictions_container'>
+                <p>
+                    <small style={{color: 'red'}}>
+                        <strong>Disclaimer:</strong> This is a hypothetical scenario. Do not use this salary predictor to
+                        determine your coach's salary. If you happen to be a hiring manager for a NCAA football team, it is
+                        highly recommended you consult your own analytics team and/or Human Resources personnel.
+                    </small>
+                </p>
+                <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                    <Autocomplete
+                        id='outlined-conf-select'
+                        options={Object.values(conferences)}
+                        value={conference}
+                        onInputChange={handleConferenceSelect}
+                        renderInput={(params) => (
+                            <TextField
+                                {...params}
+                                variant={'outlined'}
+                            />
+                        )}
+                    />
+                    <FormHelperText id='outlined-conf-helper-text'>Conference</FormHelperText>
+                </FormControl>
+                <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                    <OutlinedInput
+                    id="outlined-adornment-weight"
+                    defaultValue={coachData['head_coaches - wl_pct']}
+                    onChange={handleChange('head_coaches - wl_pct')}
+                    endAdornment={<InputAdornment position="end">%</InputAdornment>}
+                    aria-describedby="outlined-winperc-helper-text"
+                    inputProps={{'aria-label': 'Win Percentage',
+                    }}
+                    />
+                    <FormHelperText id="outlined-winperc-helper-text">Win/Loss Percentage</FormHelperText>
+                </FormControl>
+                <FormControl className={clsx(classes.margin, classes.textField)} variant="outlined">
+                    <OutlinedInput
+                    id="outlined-adornment-avgattendance"
+                    defaultValue={coachData['AvgAttendance']}
+                    onChange={handleChange('AvgAttendance')}
+                    endAdornment={<InputAdornment position="end">avg.</InputAdornment>}
+                    aria-describedby="outlined-avgattendance-helper-text"
+                    inputProps={{'aria-label': 'Average Attendance'
+                    }}
+                    />
+                    <FormHelperText id="outlined-avgattendnace-helper-text">Avg Home Game Attendance</FormHelperText>
+                </FormControl>
+            </div>
+            <div>
+                <Button
+                    onClick={doPredSal}
+                    disabled={(isNaN(coachData['head_coaches - wl_pct']) ||
+                        isNaN(coachData['AvgAttendance']) ||
+                            conference === ''
+                    )}
+                    variant='contained'
+                >
+                    Predict Salary
+                </Button>
+                <FormControl className={clsx(classes.margin, classes.textField)}>
+                    <FormControlLabel control={<Checkbox onChange={saveData} checked={isChecked}/>}
+                                      label='Save Prediction' />
+                </FormControl>
+            </div>
+          </Paper>
+
+            {predSal !== '' &&
+                <Paper className={classes.paper}>
                     <div>
-                        <p><strong>Previous Data:</strong></p>
-                        <DataGrid
-                            className={classes.dataTable}
-                            rows={prevData}
-                            columns={columns}
-                            pageSize={5}
-                            disableSelectionOnClick
-                        />
-                        <Button
-                            onClick={clearPreds}
-                        >Clear Table</Button>
+                      <p>Predicted Salary: {predSal}</p>
+                      {(isChecked && prevData.length > 0) &&
+                          <div>
+                              <p><strong>Previous Data:</strong></p>
+                              <DataGrid
+                                  className={classes.dataTable}
+                                  rows={prevData}
+                                  columns={columns}
+                                  pageSize={5}
+                                  disableSelectionOnClick
+                              />
+                              <Button
+                                  onClick={clearPreds}
+                              >Clear Table</Button>
+                          </div>
+                      }
                     </div>
-                }
-            </Container>
-          }
+                </Paper>
+            }
       </React.Fragment>
     );
 }

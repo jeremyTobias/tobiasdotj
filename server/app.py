@@ -21,7 +21,7 @@ from .models.salary.fballcoaches import Fball
 
 @app.route('/zillow', methods=['GET'])
 def zillow():
-    allData = Housing.query.all()
+    allData = Housing.query.order_by(Housing.populationGrowth.desc()).all()
 
     return jsonify({
         'data': [res.serialized for res in allData]

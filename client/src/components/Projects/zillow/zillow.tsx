@@ -22,7 +22,7 @@ const useStyles = makeStyles((theme: Theme) =>
           padding: theme.spacing(2),
           textAlign: 'center',
           height: 425,
-          backgroundColor: theme.palette.grey[500]
+          backgroundColor: 'white'
       }
   }),
 );
@@ -107,16 +107,13 @@ function Zillow() {
 
                 const dat =
                     <div className={classes.root}>
+                        <p>I don't care about your gibberish. Take me to the <a href='#price_forecast_container'>price forecast...</a></p>
                         <p>
                             <h3>About this project</h3>
                             A hypothetical scenario where we have an investor looking to invest in real estate across
                             the U.S. We are tasked with determining the best location(s) for this investor based on their
                             investor profile and information retrieved from the Zillow housing database and any additional
                             data we deem relevant in order to build a useful investment model for this particular investor.
-                        </p>
-                        <p>
-                            <small style={{color: 'red'}}><strong>Disclaimer:</strong> This is a hypothetical scenario and not actual investment
-                            advice. Please consult a qualified real estate investor for actual investment advice.</small>
                         </p>
                         <p>
                             <h3>Investor Profile:</h3>
@@ -176,7 +173,13 @@ function Zillow() {
                         <Paper className={classes.paper}>
                             <ZChart chartData={curData}/>
                         </Paper>
-                        <Paper className={classes.paper}>
+                        <Paper id='price_forecast_container' className={classes.paper}>
+                            <p>
+                                <small style={{color: 'red'}}>
+                                    <strong>Disclaimer:</strong> This is a hypothetical scenario and not actual investment advice.
+                                    Please consult a qualified real estate investment advisor for actual investment advice.
+                                </small>
+                            </p>
                             <ZTimeSeries chartData={curData}/>
                         </Paper>
                     </div>
