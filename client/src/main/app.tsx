@@ -4,14 +4,14 @@ import { useRoutes } from 'hookrouter';
 import {CssBaseline, Container, Paper} from '@material-ui/core';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Home from '../components/Home/home';
-import About from '../components/About/about';
-import Projects from '../components/Projects/projects';
-import Project from '../components/Projects/project';
-import Nav from '../components/Nav/nav';
-import Contact from '../components/Contact/contact';
-import Footer from '../components/Misc/footer';
-import Blog from '../components/Blog/blog';
+import Home from '../components/home/home';
+import About from '../components/about/about';
+import Projects from '../components/projects/projects';
+import Project from '../components/projects/project';
+import Nav from '../components/nav/nav';
+import Contact from '../components/contact/contact';
+import Footer from '../components/misc/footer';
+import Blog from '../components/blog/blog';
 
 const sections = [
     {title: 'Projects', url: '/projects'},
@@ -34,7 +34,7 @@ const useStyles = makeStyles((theme) => ({
         backgroundBlendMode: 'screen',
     },
     main: {
-        padding: theme.spacing(1),
+        padding: theme.spacing(2),
         marginTop: theme.spacing(8),
         marginBottom: theme.spacing(2),
         backgroundColor: 'rgba(73, 78, 107, 0.5)',
@@ -72,9 +72,7 @@ function App() {
             <Nav title='Tobias.J' sections={sections} />
             <Container>
                 <Paper component='main' className={classes.main}>
-                    <Container>
-                        {routeResults||<h1>PAGE NOT FOUND</h1>}
-                    </Container>
+                    {routeResults||<h1>PAGE NOT FOUND</h1>}
                 </Paper>
             </Container>
             <footer className={classes.footer}>

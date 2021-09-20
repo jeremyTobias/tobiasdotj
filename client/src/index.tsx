@@ -4,7 +4,7 @@ import { Router } from 'react-router-dom';
 import { createBrowserHistory } from 'history';
 import reportWebVitals from './reportWebVitals';
 
-import App from './main/App';
+import App from './main/app';
 
 const history = createBrowserHistory();
 

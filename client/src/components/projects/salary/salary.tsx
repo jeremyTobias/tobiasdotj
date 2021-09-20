@@ -71,7 +71,7 @@ const columns: GridColDef[] = [
     },
     {
         field: 'attendance',
-        headerName: 'Home Attendance (avg.)',
+        headerName: 'home Attendance (avg.)',
         headerAlign: 'center',
         width: 240,
     },

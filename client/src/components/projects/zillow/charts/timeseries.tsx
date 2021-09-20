@@ -1,6 +1,6 @@
 import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
-import { Button, Grid, Container, TextField } from "@material-ui/core";
+import { Button, Grid, TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
 import Plot from 'react-plotly.js';
 
@@ -25,15 +25,12 @@ class ZTimeSeries extends React.Component<Props, State> {
                         createStyles({
                             root: {
                                 flexGrow: 1,
-                                color: 'whitesmoke',
                                 justifyContent: 'center',
-                                backgroundColor: theme.palette.grey[100],
-                                margin: 'auto'
                             },
                             paper: {
                                 padding: theme.spacing(2),
+                                justifyContent: 'center',
                                 textAlign: 'center',
-                                color: theme.palette.text.secondary,
                             },
                         }),
                     )
@@ -169,41 +166,39 @@ class ZTimeSeries extends React.Component<Props, State> {
     render() {
         const zipcodes = this.props.chartData.map((c: any) => c.zip.toString());
         const forecast = this.state.forecasting;
-        const classes = this.state.styles;
+        // const classes = this.state.styles;
 
         return (
             <React.Fragment>
-                <Container className={classes.root}>
-                    <Grid container spacing={2}>
-                        <Grid item sm={2}>
-                            <Autocomplete
-                                id='zipcode-select'
-                                freeSolo
-                                options={zipcodes}
-                                onChange={this.handleChange}
-                                defaultValue='20105'
-                                renderInput={(params) => (
-                                    <TextField
-                                        {...params}
-                                        label='Zip Code Selection'
-                                        margin='normal'
-                                        variant='outlined'
-                                    />
-                                )}
-                            />
-                        </Grid>
-                        <Grid style={{marginTop: 'auto', marginBottom: 'auto'}} item sm={2}>
-                            <Button
-                                variant='contained'
-                                onClick={this.doForecast}
-                                disabled={this.state.zipcode === '' || isNaN(this.state.zipcode) || this.state.zipcode === null}
-                            >
-                                Forecast
-                            </Button>
-                        </Grid>
+                <Grid container spacing={4}>
+                    <Grid item sm={2}>
+                        <Autocomplete
+                            id='zipcode-select'
+                            freeSolo
+                            options={zipcodes}
+                            onChange={this.handleChange}
+                            defaultValue='20105'
+                            renderInput={(params) => (
+                                <TextField
+                                    {...params}
+                                    label='Zip Code Selection'
+                                    margin='normal'
+                                    variant='outlined'
+                                />
+                            )}
+                        />
                     </Grid>
-                </Container>
-                <Container>{forecast}</Container>
+                    <Grid style={{marginTop: 'auto', marginBottom: 'auto'}} item sm={2}>
+                        <Button
+                            variant='contained'
+                            onClick={this.doForecast}
+                            disabled={this.state.zipcode === '' || isNaN(this.state.zipcode) || this.state.zipcode === null}
+                        >
+                            Forecast
+                        </Button>
+                    </Grid>
+                </Grid>
+                <div>{forecast}</div>
             </React.Fragment>
         );
     }

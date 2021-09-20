@@ -14,7 +14,7 @@ class ZChart extends React.Component<Props> {
 
     render() {
         return(
-            <div>
+            <React.Fragment>
                 <Plot
                     data={[
                         {
@@ -29,7 +29,6 @@ class ZChart extends React.Component<Props> {
                             marker: {
                                 symbol: 'circle',
                                 size: this.props.chartData.map((range: any) => range.populationGrowth),
-                                // sizeref: 4,
                                 sizemode: 'area'
                             },
                             text: this.props.chartData.map((c: any) => c.city + ', ' + c.state + ' ' + c.zip),
@@ -83,7 +82,7 @@ class ZChart extends React.Component<Props> {
                         displaylogo: false,
                     }}
                 />
-            </div>
+            </React.Fragment>
         );
     }
 }
