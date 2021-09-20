@@ -109,11 +109,25 @@ function Zillow() {
                     <div className={classes.root}>
                         <p>I don't care about your gibberish. Take me to the <a href='#price_forecast_container'>price forecast...</a></p>
                         <p>
-                            <h3>About this project</h3>
+                            <h2>About this project</h2>
                             A hypothetical scenario where we have an investor looking to invest in real estate across
-                            the U.S. We are tasked with determining the best location(s) for this investor based on their
+                            the U.S.
+                        </p>
+                        <p>
+                            We are tasked with determining the best location(s) for this investor based on their
                             investor profile and information retrieved from the Zillow housing database and any additional
                             data we deem relevant in order to build a useful investment model for this particular investor.
+                        </p>
+                        <p>
+                            This project utilizes a live database of ~5k observations of data gathered from <a href='https://colab.research.google.com/drive/files.zillowstatic.com/research/public/Zip/Zip_Zhvi_SingleFamilyResidence.csv'>Zillow
+                            </a>
+                            . The housing data is combined with population data from <a href='https://www.zipdatamaps.com/national/population/map-of-fastest-growing-zipcodes-in-the-united-states'>ZipDataMaps
+                            </a> and uses the top 50 fastest growing zipcodes.
+                        </p>
+                        <p>
+                            The plots are live and interactive plots using <a href='https://plotly.com/javascript/'>Plotly</a>,
+                            and forecasts are performed on demand utilizing
+                            the <a href='https://facebook.github.io/prophet/'>Facebook Prophet</a> Python library.
                         </p>
                         <p>
                             <h3>Investor Profile:</h3>
@@ -123,15 +137,6 @@ function Zillow() {
                                 * Moderate risk level. Prefers a small range relative to price
                         </p>
                         <p>
-                            While it has been shown that California has the highest percent growth in dollar value for
-                            given data, according to <a href='https://www.zipdatamaps.com/national/population/map-of-fastest-growing-zipcodes-in-the-united-states'>
-                            ZipDataMaps
-                            </a> , only one California zip code is present within the top
-                            ten fastest growing zip codes. Therefore, we will be taking in to consideration to top 50
-                            fastest growing zip codes, according to the <a href='https://www.zipdatamaps.com/national/population/map-of-fastest-growing-zipcodes-in-the-united-states'>
-                            ZipDataMaps
-                            </a> data.
-                        <br/><br/>
                             In the below table, we see that of the top five zip codes Texas takes three of the spots.
                             However, we need to combine this with our housing data to get a better idea of if these zip
                             codes are right for our investor.
@@ -158,11 +163,11 @@ function Zillow() {
                             data in 2020.
                         </p>
                         <p>
-                            <strong>U/L Price Deviation(x):</strong> A measure of the total price of the upper and lower
-                            predicted prices in relation to the mean price predicted for a given zipcode. The lower
+                            <strong>U/L Price Deviation(x):</strong> A measure of the forecasted upper and lower
+                            predicted prices in relation to the average price predicted for a given zipcode. The lower
                             the percent deviation, the tighter the range of a given prediction. Thus, a lower risk
-                            to the investor in regards to potential profit gained when eventually selling a house
-                            in the zipcode of choice.
+                            to the investor in regards to potential profit gained when eventually selling a house or piece
+                            of real estate in the zipcode of choice.
                         </p>
                         <p>
                             The <strong>size</strong> of an observation is a representation of the current population

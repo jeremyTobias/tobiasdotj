@@ -2,7 +2,7 @@ import React from 'react';
 import { makeStyles, createStyles, Theme } from '@material-ui/core/styles';
 import { Button, Grid, Container, TextField } from "@material-ui/core";
 import Autocomplete from '@material-ui/lab/Autocomplete';
-import Plot from "react-plotly.js";
+import Plot from 'react-plotly.js';
 
 interface Props {
     chartData: any;
@@ -27,8 +27,8 @@ class ZTimeSeries extends React.Component<Props, State> {
                                 flexGrow: 1,
                                 color: 'whitesmoke',
                                 justifyContent: 'center',
-                                backgroundColor:
-                                    theme.palette.grey[100]
+                                backgroundColor: theme.palette.grey[100],
+                                margin: 'auto'
                             },
                             paper: {
                                 padding: theme.spacing(2),
@@ -104,11 +104,9 @@ class ZTimeSeries extends React.Component<Props, State> {
                             }
                         ]}
                         layout={{
-                            width: 800,
-                            height: 550,
                             title: this.state.zipcode + ' Price Forecast',
                             hovermode: 'closest',
-                            hoverlabel: { bgcolor: "#FFF" },
+                            hoverlabel: { bgcolor: '#FFF' },
                             xaxis: {
                                 title: {
 
@@ -155,6 +153,11 @@ class ZTimeSeries extends React.Component<Props, State> {
                                 zeroline: false
                             }
                          }}
+                        config={{
+                            responsive: true,
+                            scrollZoom: true,
+                            displaylogo: false
+                        }}
                     />
 
                 this.setState({
@@ -169,7 +172,7 @@ class ZTimeSeries extends React.Component<Props, State> {
         const classes = this.state.styles;
 
         return (
-            <div>
+            <React.Fragment>
                 <Container className={classes.root}>
                     <Grid container spacing={2}>
                         <Grid item sm={2}>
@@ -189,7 +192,7 @@ class ZTimeSeries extends React.Component<Props, State> {
                                 )}
                             />
                         </Grid>
-                        <Grid item sm={1}>
+                        <Grid style={{marginTop: 'auto', marginBottom: 'auto'}} item sm={2}>
                             <Button
                                 variant='contained'
                                 onClick={this.doForecast}
@@ -201,8 +204,8 @@ class ZTimeSeries extends React.Component<Props, State> {
                     </Grid>
                 </Container>
                 <Container>{forecast}</Container>
-            </div>
-        )
+            </React.Fragment>
+        );
     }
 }
 

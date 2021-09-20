@@ -33,7 +33,10 @@ const useStyles = makeStyles((theme: Theme) =>
           textAlign: 'center',
       },
       margin: {
-          margin: theme.spacing(1),
+          marginTop: 'auto',
+          marginBottom: 'auto',
+          marginLeft: theme.spacing(1),
+          marginRight: theme.spacing(1)
       },
       withoutLabel: {
           marginTop: theme.spacing(3),

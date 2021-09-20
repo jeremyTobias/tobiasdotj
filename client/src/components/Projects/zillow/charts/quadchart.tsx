@@ -42,9 +42,7 @@ class ZChart extends React.Component<Props> {
                       }
                     ]}
                     layout={{
-                        width: 800,
-                        height: 450,
-                        title: 'Top 50 Growing Zip Codes 5yr Price Forecasts and Price Range Deviation',
+                        title: 'Top 50 Growing Zip Codes 5yr Price Forecasts & Price Range Deviation',
                         hovermode: "closest",
                         hoverlabel: { bgcolor: "#FFF" },
                         legend: {orientation: 'h', y: -0.3},
@@ -54,7 +52,7 @@ class ZChart extends React.Component<Props> {
                                 font: {
                                     size:18
                                 },
-                                standoff: 300
+                                standoff: 450
                             },
                             tickformat: '.0%',
                             showline: true,
@@ -78,6 +76,11 @@ class ZChart extends React.Component<Props> {
                             anchor: 'free',
                             position: 0.5
                         }
+                    }}
+                    config={{
+                        responsive: true,
+                        scrollZoom: true,
+                        displaylogo: false,
                     }}
                 />
             </div>
